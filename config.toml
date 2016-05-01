@@ -1,4 +1,4 @@
-baseurl = "http://www.callmeradical.com"
+baseurl = "http://callmeradical.com"
 languageCode = "en-us"
 contentdir = "content"
 publishdir = "public"
