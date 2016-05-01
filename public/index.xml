@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Lars Cromley</title>
+      <title> on Lars Cromley </title>
+      <generator uri="https://gohugo.io">Hugo</generator>
     <link>http://callmeradical.com/</link>
-    <description>Recent content on Lars Cromley</description>
-    <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    
     <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <lastBuildDate>Thu, 31 Mar 2016 20:40:23 -0400</lastBuildDate>
-    <atom:link href="http://callmeradical.com/index.xml" rel="self" type="application/rss+xml" />
+    <updated>Thu, 31 Mar 2016 20:40:23 EDT</updated>
     
     <item>
       <title>Free advice from a Terraform user</title>
       <link>http://callmeradical.com/post/free-advice-from-a-terraform-user/</link>
-      <pubDate>Thu, 31 Mar 2016 20:40:23 -0400</pubDate>
+      <pubDate>Thu, 31 Mar 2016 20:40:23 EDT</pubDate>
       
       <guid>http://callmeradical.com/post/free-advice-from-a-terraform-user/</guid>
       <description>&lt;p&gt;Firstly a huge thank you goes out to &lt;a href=&#34;https://twitter.com/mipsytipsy?lang=en&#34;&gt;@mipsytipsy&lt;/a&gt; for this awesome post mortem on what appears to be or what could have been one of the worst outages of her career.&lt;/p&gt;
@@ -31,7 +30,7 @@
     <item>
       <title>Container best practices from RedHat</title>
       <link>http://callmeradical.com/post/container-best-practices-from-redhat/</link>
-      <pubDate>Thu, 31 Mar 2016 16:03:39 -0400</pubDate>
+      <pubDate>Thu, 31 Mar 2016 16:03:39 EDT</pubDate>
       
       <guid>http://callmeradical.com/post/container-best-practices-from-redhat/</guid>
       <description>&lt;p&gt;I came across this post in a slack channel earlier today and thought it was some pretty sound advice for those starting out in the container eco system.&lt;/p&gt;
@@ -142,7 +141,7 @@ Yes, we are capable of doing two things at the same time. It is possible, for ex
     <item>
       <title>Lambda, Docker/ECS, and S3... sitting in a tree.</title>
       <link>http://callmeradical.com/post/aws-techconnect-seattle/</link>
-      <pubDate>Wed, 28 Oct 2015 00:59:36 -0400</pubDate>
+      <pubDate>Wed, 28 Oct 2015 00:59:36 EDT</pubDate>
       
       <guid>http://callmeradical.com/post/aws-techconnect-seattle/</guid>
       <description>&lt;p&gt;To go along with a talk I am doing this week, I created a demo project to reinforce the idea behind ephemeral architecture and infrastructure as code.&lt;/p&gt;
@@ -242,7 +241,7 @@ aws s3 sync _site $SITE
     <item>
       <title>Tetris... err... Getting Started with Kubernetes</title>
       <link>http://callmeradical.com/post/getting-started-with-k8s/</link>
-      <pubDate>Wed, 30 Sep 2015 02:39:08 -0400</pubDate>
+      <pubDate>Wed, 30 Sep 2015 02:39:08 EDT</pubDate>
       
       <guid>http://callmeradical.com/post/getting-started-with-k8s/</guid>
       <description>&lt;p&gt;After watching &lt;a href=&#34;https://twitter.com/kelseyhightower&#34;&gt;@kelseyhightower&amp;rsquo;s&lt;/a&gt; speech at &lt;a href=&#34;https://www.youtube.com/watch?v=pozC9rBvAIs&#34;&gt;Strangeloop 2015.&lt;/a&gt; I was really impressed at the ease of instruction and demonstration he showed. I had not played with Kubernetes aside from using the kube-up.sh script in the github repo with the EC2 provider.&lt;/p&gt;
@@ -305,7 +304,7 @@ influxGrafana is running at https://XX.XX.XX.XX/api/v1beta3/proxy/namespaces/def
     <item>
       <title>Eight Docker Development Patterns</title>
       <link>http://callmeradical.com/post/eight-docker-dev-patterns/</link>
-      <pubDate>Tue, 29 Sep 2015 02:36:55 -0400</pubDate>
+      <pubDate>Tue, 29 Sep 2015 02:36:55 EDT</pubDate>
       
       <guid>http://callmeradical.com/post/eight-docker-dev-patterns/</guid>
       <description>&lt;p&gt;This was a post I had stashed away a while ago by &lt;a href=&#34;http://www.hokstad.com&#34;&gt;Vidar Hokstad&lt;/a&gt;.&lt;/p&gt;
@@ -338,7 +337,7 @@ This is not my own, but really deserves a mention. The excellent nsenter and doc
     <item>
       <title>Working with octopress... in a container.</title>
       <link>http://callmeradical.com/post/working-with-octopress-dot-dot-dot-in-a-container/</link>
-      <pubDate>Fri, 25 Sep 2015 05:33:56 -0400</pubDate>
+      <pubDate>Fri, 25 Sep 2015 05:33:56 EDT</pubDate>
       
       <guid>http://callmeradical.com/post/working-with-octopress-dot-dot-dot-in-a-container/</guid>
       <description>&lt;p&gt;So I have been on a bit of a kick with Docker. I have been in Boston talking
@@ -470,7 +469,7 @@ post, I can just use&lt;/p&gt;
     <item>
       <title>It&#39;s that time again...</title>
       <link>http://callmeradical.com/post/its-that-time-again-dot-dot-dot/</link>
-      <pubDate>Thu, 24 Sep 2015 16:07:36 -0400</pubDate>
+      <pubDate>Thu, 24 Sep 2015 16:07:36 EDT</pubDate>
       
       <guid>http://callmeradical.com/post/its-that-time-again-dot-dot-dot/</guid>
       <description>&lt;p&gt;Well it is that time again. AWS re:Invent is right around the corner and I will

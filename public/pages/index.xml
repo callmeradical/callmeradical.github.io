@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Pages on Lars Cromley</title>
+      <title>Pages on Lars Cromley </title>
+      <generator uri="https://gohugo.io">Hugo</generator>
     <link>http://callmeradical.com/pages/</link>
-    <description>Recent content in Pages on Lars Cromley</description>
-    <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    
     <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <lastBuildDate>Sat, 27 Feb 2016 19:33:58 -0400</lastBuildDate>
-    <atom:link href="http://callmeradical.com/pages/index.xml" rel="self" type="application/rss+xml" />
+    <updated>Sat, 27 Feb 2016 19:33:58 -0400</updated>
     
     <item>
       <title>About me</title>
