@@ -1,0 +1,286 @@
+  <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title> Setting up Puma and Nginx &middot; Lars Cromley </title>
+    
+    <link rel="stylesheet" type="text/css" href="http://callmeradical.com/css/uno.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://callmeradical.com/css/lightGallery.css" />
+    
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://callmeradical.com/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="http://callmeradical.com/favicon.ico">
+    
+    
+    <script src="http://callmeradical.com/js/jquery.min.js"></script>
+    <script src="http://callmeradical.com/js/main.min.js">
+    </script>
+</head>
+
+  <body>
+    <div id="scriptHeader">
+    <span class="mobile btn-mobile-menu">
+            <i class="fa fa-bars btn-mobile-menu__icon"></i>
+            <i class="fa fa-times btn-mobile-close__icon hidden"> </i>
+    </span>
+    <header class="
+        
+            panel-cover panel-cover--collapsed
+        "  style="background-image: url(/images/bg.jpg)" >
+    <div class="panel-main">
+        <div class="panel-main__inner panel-inverted">
+            <div class="panel-main__content"> 
+                <a href="http://callmeradical.com/" title="link to homepage for Lars Cromley"> <img src="http://callmeradical.com/images/logo.jpg" width="80" alt="Lars Cromley logo" class="panel-cover__logo logo" /> </a> 
+                <h1 class="panel-cover__title panel-title">
+                    <a href="http://callmeradical.com/"  title="link to homepage for Lars Cromley">Lars Cromley</a>
+                </h1>
+                <hr class="panel-cover__divider" />
+                <p class="panel-cover__description">  Technologist, evangelist, and all around nerd. These thoughts are my own and do not reflect that of my employer.  </p>
+                <hr class="panel-cover__divider panel-cover__divider--secondary" />
+                <div class="navigation-wrapper">
+                    <nav class="cover-navigation cover-navigation--primary">
+                        <ul class="navigation">
+                            <li class="navigation__item"><a href="http://callmeradical.com#blog" title="link to Lars Cromley blog" class="blog-button">Blog</a> </li>
+                            
+                       </ul>
+                    </nav> <nav class="cover-navigation navigation--social">
+    
+      
+      <a href="http://twitter.com/callmeradical" title="@callmeradical on Twitter"> <i class='fa fa-twitter'></i> <span class="label">Twitter</span> </a>
+       
+       
+      
+        
+        <a href="https://github.com/callmeradical" title="callmeradical on github"> <i class='fa fa-github'></i> <span class="label">Github</span> </a>
+       
+       
+      
+        
+        <a href="http://no.linkedin.com/in/larscromley/en" title="Linkedin"> <i class='fa fa-linkedin'></i> <span class="label">Linkedin</span> </a>
+       
+      
+        
+        <a href="mailto:lars@callmeradical.com" title="Email lars@callmeradical.com"> <i class='fa fa-envelope-o'></i> <span class="label">Email</span> </a>
+       
+</nav>
+ </div>
+            </div>
+        </div>
+        <div class="panel-cover--overlay"></div>
+    </div>
+</header>
+</div>
+<noscript>
+    <style>
+        #scriptHeader {display:none;}
+        .navigation-wrapper{
+            display: block;
+            top: 0;
+        }
+    </style>
+
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url(/images/bg.jpg)">
+        <div class="panel-main">
+            <div class="panel-main__inner panel-inverted">
+                <div class="panel-main__content"> 
+                    <a href="http://callmeradical.com/" title="link to homepage for Lars Cromley"> <img src="http://callmeradical.com/images/logo.jpg" width="80" alt="Lars Cromley logo" class="panel-cover__logo logo" /> </a> 
+                    <h1 class="panel-cover__title panel-title">
+                        <a href="http://callmeradical.com/"  title="link to homepage for Lars Cromley">Lars Cromley</a>
+                    </h1>
+                    <hr class="panel-cover__divider" />
+                    <p class="panel-cover__description">  Technologist, evangelist, and all around nerd. These thoughts are my own and do not reflect that of my employer.  </p>
+                    <hr class="panel-cover__divider panel-cover__divider--secondary" />
+                    <div class="navigation-wrapper">
+                            <ul class="navigation">
+                                <li class="navigation__item"><a href="http://callmeradical.com/#blog" title="link to Lars Cromley blog" class="blog-button">Blog</a> </li></br>
+                                
+                                
+                           </ul>
+                        <nav class="cover-navigation navigation--social">
+    
+      
+      <a href="http://twitter.com/callmeradical" title="@callmeradical on Twitter"> <i class='fa fa-twitter'></i> <span class="label">Twitter</span> </a>
+       
+       
+      
+        
+        <a href="https://github.com/callmeradical" title="callmeradical on github"> <i class='fa fa-github'></i> <span class="label">Github</span> </a>
+       
+       
+      
+        
+        <a href="http://no.linkedin.com/in/larscromley/en" title="Linkedin"> <i class='fa fa-linkedin'></i> <span class="label">Linkedin</span> </a>
+       
+      
+        
+        <a href="mailto:lars@callmeradical.com" title="Email lars@callmeradical.com"> <i class='fa fa-envelope-o'></i> <span class="label">Email</span> </a>
+       
+</nav>
+ </div>
+                </div>
+            </div>
+            <div class="panel-cover--overlay"></div>
+        </div>
+    </header>
+</noscript>
+
+    <div class="content-wrapper">
+      <div class="content-wrapper__inner">
+        <div class="post">
+          <h1>Setting up Puma and Nginx</h1>
+          <span class="post-date">Mon, Nov 25, 2013</span>
+          
+
+<p><em>(This article assumes familiarity with reverse proxy software such as Varnish or Nginx)</em></p>
+
+<p>For those of you not familiar with puma you can check out more information <a href="http://puma.io">here - Puma.</a> and if that is too much to read, it can be summarized here…</p>
+
+<ul>
+<li>Puma is a very lightweight and incredibly fast web server that was built for speed and parallelism. For comparisions of other webservers check out the link above.</li>
+</ul>
+
+<p>As scability and multi-tenancy issues arise, the benefits of using a stack which utilizes a reverse proxy and web server tends to make more sense. The reverse proxy can feed into a pool of web apps as opposed to an instance of apache which would act as both load balancer and route the request to a single web server instance that would fork more processes to meet the demand. The diagram below generally depicts how this works.</p>
+
+<!-- more -->
+
+<p><strong>A reverse proxy: Example</strong></p>
+
+<pre><code>                                +---&gt; web app 1 process --&gt; threads
+                                |
+[requests]&lt;--&gt;[reverse proxy server]--+---&gt; web app 2 process -&gt; threads
+                                |
+                                +---&gt; web app 3 process -&gt; threads
+</code></pre>
+
+<p><strong>Traditional Apache: Example</strong></p>
+
+<pre><code>            +---  web app process fork
+            |
+[requests]-------  web app process fork
+            |
+            +--- web app process fork
+</code></pre>
+
+<p>There have been some debates and I have read conflicting reports of which way is better. Quite honestly I don&rsquo;t think we are ever going to find a one size fits all solution for these problems. Take a look at your application and try to figure out which makes sense for that project and put in your implementation, or do some research and benchmark each. I just want to put this out there so maybe some of you can get behind it.</p>
+
+<h1 id="installing-puma">Installing Puma</h1>
+
+<p>Installation is very quick and easy…</p>
+
+<p>In any Rails 3+ app add the following to your Gemfile.</p>
+
+<pre><code>gem     'puma', '~&gt; 2.5.1'
+</code></pre>
+
+<p>Then issue a quick <code>bundle install</code></p>
+
+<p>When in that directory you can type <code>rails s</code> to start your app and you should be greated with something that looks similar to this:</p>
+
+<pre><code>Puma starting in single mode...
+blah blah blah blah
+</code></pre>
+
+<p>Congratulations Puma is installed!</p>
+
+<h1 id="installing-nginx">Installing Nginx</h1>
+
+<p>Nginx is the reverse proxy server we are going to be using. Mainly beceause we can utilize its <code>HttpProxyModule</code> to pass requests to any number of virtual hosts.</p>
+
+<p>Installation varies from distro to distro I recommend compiling from source because generally what is available in the package managers is out of date.</p>
+
+<p>If you would like to see these methods go ahead and <a href="http://wiki.nginx.org/install">look here - Nginx installation</a>.</p>
+
+<h1 id="configuring-nginx">Configuring Nginx</h1>
+
+<p>The particular configuration I use is to utilize the <code>upstream</code> directive to tell Nginx where to proxy parse the request to. Then we will add the virtual host and use <code>proxy_address</code> directive to tell Nginx to pass the request to the pool of processes defined in the <code>upstream</code> section.</p>
+
+<p><strong><em>Warning: these instructions will vary from distro to distro</em></strong></p>
+
+<p>First remove the default virtual hosts files.</p>
+
+<p><code>sudo rm /etc/nginx/confi.d/default.conf</code></p>
+
+<p>Next we have to create a new host config file. This will typically be located at <code>/etc/nginx/conf.d/project_name.conf</code> for our rails app fill in this file with this code, you can replace the sections labeled project_name with your own project name.</p>
+
+<pre><code>upstream project_name {
+  server unix:///var/run/project_name.sock;
+}
+
+server {
+  listen 80;
+  server_name project_name_url.com; # change to match your URL
+  root /var/www/project_name/public; # I assume your app is located at this location
+
+  location / {
+    proxy_pass http://project_name; # match the name of upstream directive which is defined above the server block
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+}
+</code></pre>
+
+<p><em>note: You may need to modify the permissions of the /var/run directory if  the user is not a member of wheel.</em></p>
+
+<p>Then you can restart your Nginx server:</p>
+
+<pre><code>sudo /etc/init.d/nginx restart
+</code></pre>
+
+<h1 id="starting-puma">Starting Puma</h1>
+
+<p><code>cd</code> to your project&rsquo;s directory and bind Puma to a unix socket.</p>
+
+<pre><code>RAILS_ENV=production bundle exec puma -e production -b unix:///var/run/project_name.sock
+</code></pre>
+
+<p>This is of course of little use to us outside of a testing scenario, we really want to run this as a daemon. We can do this very easily by supplying the <code>-d</code> parameter, like so:</p>
+
+<pre><code>RAILS_ENV=production bundle exec puma -e production -d -b unix:///var/run/project_name.sock
+</code></pre>
+
+<p>And that is essentially it! You should now be up and running!</p>
+
+<p>Managing puma requires a little bit of Unix-fu or command line mastery, some basic commands:</p>
+
+<ul>
+<li><p>This will show you the PID in use by puma.
+<code>ps aux | grep puma</code></p></li>
+
+<li><p>This will stop and and restart puma.
+<code>kill -s SIGUSR2 #pid_number_from_ps_aux</code>
+<em>note: this will kill itself and fork a new process with a new PID</em></p></li>
+
+<li><p>This will terminate the puma daemon.
+<code>kill -s SIGTERM #pid_number_from_ps_aux</code></p></li>
+</ul>
+
+<p>That is it for now, you can expect an in depth view of managing puma in the days to come. We will look at managing your pid&rsquo;s, sockets, and other built in functions in Puma.</p>
+
+<p>Cheers!</p>
+
+        </div>
+        <div class="sharing">
+<a href="https://twitter.com/intent/tweet?status=Setting%20up%20Puma%20and%20Nginx-http%3a%2f%2fcallmeradical.com%2fpost%2fsetting-up-puma-and-nginx%2f" target="_blank" title="Follow me on Twitter" class="twitter">
+<span class="fa fa-twitter-square fa-2x"></span></a>
+<a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fcallmeradical.com%2fpost%2fsetting-up-puma-and-nginx%2f" target="_blank" title="Join me on Facebook" class="facebook">
+<span class="fa fa-facebook-square fa-2x"></span></a>
+<a href="https://plus.google.com/share?url=http%3a%2f%2fcallmeradical.com%2fpost%2fsetting-up-puma-and-nginx%2f" target="_blank" title="Google+" class="googleplus">
+<span class="fa fa-google-plus-square fa-2x"></span></a>
+<a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fcallmeradical.com%2fpost%2fsetting-up-puma-and-nginx%2f&title=Setting%20up%20Puma%20and%20Nginx" target="_blank" title="LinkedIn" class="linkedin">
+<span class="fa fa-linkedin-square fa-2x"></span></a>
+<a href="http://www.reddit.com/submit?url=http%3a%2f%2fcallmeradical.com%2fpost%2fsetting-up-puma-and-nginx%2f" target="_blank" title="Reddit" class="reddit"><span class="fa fa-reddit-square fa-2x"></span></a>
+<a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fcallmeradical.com%2fpost%2fsetting-up-puma-and-nginx%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="fa fa-stumbleupon fa-2x">
+</span></a>
+</div>
+
+        
+
+
+
+      </div>
+    </div>
+
+  </body>
+  
+</html>

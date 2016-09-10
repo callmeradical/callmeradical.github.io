@@ -1,0 +1,173 @@
+  <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title> Understanding boxen, a Sysadmin&#39;s realization... &middot; Lars Cromley </title>
+    
+    <link rel="stylesheet" type="text/css" href="http://callmeradical.com/css/uno.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://callmeradical.com/css/lightGallery.css" />
+    
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://callmeradical.com/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="http://callmeradical.com/favicon.ico">
+    
+    
+    <script src="http://callmeradical.com/js/jquery.min.js"></script>
+    <script src="http://callmeradical.com/js/main.min.js">
+    </script>
+</head>
+
+  <body>
+    <div id="scriptHeader">
+    <span class="mobile btn-mobile-menu">
+            <i class="fa fa-bars btn-mobile-menu__icon"></i>
+            <i class="fa fa-times btn-mobile-close__icon hidden"> </i>
+    </span>
+    <header class="
+        
+            panel-cover panel-cover--collapsed
+        "  style="background-image: url(/images/bg.jpg)" >
+    <div class="panel-main">
+        <div class="panel-main__inner panel-inverted">
+            <div class="panel-main__content"> 
+                <a href="http://callmeradical.com/" title="link to homepage for Lars Cromley"> <img src="http://callmeradical.com/images/logo.jpg" width="80" alt="Lars Cromley logo" class="panel-cover__logo logo" /> </a> 
+                <h1 class="panel-cover__title panel-title">
+                    <a href="http://callmeradical.com/"  title="link to homepage for Lars Cromley">Lars Cromley</a>
+                </h1>
+                <hr class="panel-cover__divider" />
+                <p class="panel-cover__description">  Technologist, evangelist, and all around nerd. These thoughts are my own and do not reflect that of my employer.  </p>
+                <hr class="panel-cover__divider panel-cover__divider--secondary" />
+                <div class="navigation-wrapper">
+                    <nav class="cover-navigation cover-navigation--primary">
+                        <ul class="navigation">
+                            <li class="navigation__item"><a href="http://callmeradical.com#blog" title="link to Lars Cromley blog" class="blog-button">Blog</a> </li>
+                            
+                       </ul>
+                    </nav> <nav class="cover-navigation navigation--social">
+    
+      
+      <a href="http://twitter.com/callmeradical" title="@callmeradical on Twitter"> <i class='fa fa-twitter'></i> <span class="label">Twitter</span> </a>
+       
+       
+      
+        
+        <a href="https://github.com/callmeradical" title="callmeradical on github"> <i class='fa fa-github'></i> <span class="label">Github</span> </a>
+       
+       
+      
+        
+        <a href="http://no.linkedin.com/in/larscromley/en" title="Linkedin"> <i class='fa fa-linkedin'></i> <span class="label">Linkedin</span> </a>
+       
+      
+        
+        <a href="mailto:lars@callmeradical.com" title="Email lars@callmeradical.com"> <i class='fa fa-envelope-o'></i> <span class="label">Email</span> </a>
+       
+</nav>
+ </div>
+            </div>
+        </div>
+        <div class="panel-cover--overlay"></div>
+    </div>
+</header>
+</div>
+<noscript>
+    <style>
+        #scriptHeader {display:none;}
+        .navigation-wrapper{
+            display: block;
+            top: 0;
+        }
+    </style>
+
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url(/images/bg.jpg)">
+        <div class="panel-main">
+            <div class="panel-main__inner panel-inverted">
+                <div class="panel-main__content"> 
+                    <a href="http://callmeradical.com/" title="link to homepage for Lars Cromley"> <img src="http://callmeradical.com/images/logo.jpg" width="80" alt="Lars Cromley logo" class="panel-cover__logo logo" /> </a> 
+                    <h1 class="panel-cover__title panel-title">
+                        <a href="http://callmeradical.com/"  title="link to homepage for Lars Cromley">Lars Cromley</a>
+                    </h1>
+                    <hr class="panel-cover__divider" />
+                    <p class="panel-cover__description">  Technologist, evangelist, and all around nerd. These thoughts are my own and do not reflect that of my employer.  </p>
+                    <hr class="panel-cover__divider panel-cover__divider--secondary" />
+                    <div class="navigation-wrapper">
+                            <ul class="navigation">
+                                <li class="navigation__item"><a href="http://callmeradical.com/#blog" title="link to Lars Cromley blog" class="blog-button">Blog</a> </li></br>
+                                
+                                
+                           </ul>
+                        <nav class="cover-navigation navigation--social">
+    
+      
+      <a href="http://twitter.com/callmeradical" title="@callmeradical on Twitter"> <i class='fa fa-twitter'></i> <span class="label">Twitter</span> </a>
+       
+       
+      
+        
+        <a href="https://github.com/callmeradical" title="callmeradical on github"> <i class='fa fa-github'></i> <span class="label">Github</span> </a>
+       
+       
+      
+        
+        <a href="http://no.linkedin.com/in/larscromley/en" title="Linkedin"> <i class='fa fa-linkedin'></i> <span class="label">Linkedin</span> </a>
+       
+      
+        
+        <a href="mailto:lars@callmeradical.com" title="Email lars@callmeradical.com"> <i class='fa fa-envelope-o'></i> <span class="label">Email</span> </a>
+       
+</nav>
+ </div>
+                </div>
+            </div>
+            <div class="panel-cover--overlay"></div>
+        </div>
+    </header>
+</noscript>
+
+    <div class="content-wrapper">
+      <div class="content-wrapper__inner">
+        <div class="post">
+          <h1>Understanding boxen, a Sysadmin&#39;s realization...</h1>
+          <span class="post-date">Mon, Nov 25, 2013</span>
+          <p>So I had a hard time understanding what exactly <a href="http://boxen.github.com">boxen</a> was used for at first. I also didn&rsquo;t really see much value other than setting a &ldquo;base&rdquo; system.</p>
+
+<!--More-->
+
+<p>However after working with puppet and reading some of the other posts by <a href="http://garylarizza.com/blog/2013/02/15/puppet-plus-github-equals-laptop-love/" title="Blog from Gary Larizza, an Engineer at Puppet Labs with a lot to say.">Gary Larizza</a> I think that boxen can really be summed up into an intelligently designed way to run puppet in an organization that requires more freedom for its users than typical. This is particularly true of development shops.</p>
+
+<p>So often system administrators want to lock everything down and provide the least amount of options to the end user. Updates, software, websites are all controlled because this is the easiest way to manage all of the systems in one&rsquo;s environment.</p>
+
+<p>Now throw in a monkey wrench, there is a small group of people that are working on this project and they all need mysql installed with some particular databases and they need to be able to quickly access data dumps on a remote server. The rest of your organization has no need for any of this and you really don&rsquo;t want to confuse more users. So what do you do? This, I think is where boxen really shines.</p>
+
+<p>You can give the keys to the castle to your users and still make sure that the basic essence of your environment remains intact by having specialized puppet manifests run on each users machine according to the project or person. Boxen enables this through version control of puppet manifests and modules.</p>
+
+<p>When you update the source code, your users run ‘boxen’  which will pull down the updated code and run it on the machine kind of like a super-powerful ‘puppet apply’</p>
+
+<p>So I guess the easiest way to explain boxen is a puppet-managed environment with no master.</p>
+
+        </div>
+        <div class="sharing">
+<a href="https://twitter.com/intent/tweet?status=Understanding%20boxen%2c%20a%20Sysadmin%27s%20realization...-http%3a%2f%2fcallmeradical.com%2fpost%2funderstanding-boxen-a-sysadmins-realization%2f" target="_blank" title="Follow me on Twitter" class="twitter">
+<span class="fa fa-twitter-square fa-2x"></span></a>
+<a href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fcallmeradical.com%2fpost%2funderstanding-boxen-a-sysadmins-realization%2f" target="_blank" title="Join me on Facebook" class="facebook">
+<span class="fa fa-facebook-square fa-2x"></span></a>
+<a href="https://plus.google.com/share?url=http%3a%2f%2fcallmeradical.com%2fpost%2funderstanding-boxen-a-sysadmins-realization%2f" target="_blank" title="Google+" class="googleplus">
+<span class="fa fa-google-plus-square fa-2x"></span></a>
+<a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fcallmeradical.com%2fpost%2funderstanding-boxen-a-sysadmins-realization%2f&title=Understanding%20boxen%2c%20a%20Sysadmin%27s%20realization..." target="_blank" title="LinkedIn" class="linkedin">
+<span class="fa fa-linkedin-square fa-2x"></span></a>
+<a href="http://www.reddit.com/submit?url=http%3a%2f%2fcallmeradical.com%2fpost%2funderstanding-boxen-a-sysadmins-realization%2f" target="_blank" title="Reddit" class="reddit"><span class="fa fa-reddit-square fa-2x"></span></a>
+<a href="http://www.stumbleupon.com/submit?url=http%3a%2f%2fcallmeradical.com%2fpost%2funderstanding-boxen-a-sysadmins-realization%2f" target="_blank" title="StumbleUpon" class="stumbleupon"><span class="fa fa-stumbleupon fa-2x">
+</span></a>
+</div>
+
+        
+
+
+
+      </div>
+    </div>
+
+  </body>
+  
+</html>
