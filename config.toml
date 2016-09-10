@@ -1,7 +1,7 @@
 baseurl = "http://callmeradical.com"
 languageCode = "en-us"
 title = "Lars Cromley"
-theme = "hugo-material-docs"
+theme = "hugo-uno"
 metadataformat = "yaml"
 canonifyurls = true
 # Enable Google Analytics by entering your tracking id
