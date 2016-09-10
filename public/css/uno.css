@@ -3,12 +3,11 @@
   font-family: 'Ubuntu', sans-serif;
   font-style: normal;
   font-weight: 400;
-  src: local("Ubuntu"), local("Ubuntu"), url(../fonts/Ubuntu-Regular.ttf) format("ttf"); }
+  src: local("Karla"), local("Karla"), url(../fonts/Karla-Regular.ttf) format("ttf"); }
 @font-face {
-  font-family: 'Source Serif Pro', serif;
+  font-family: 'Georgia', serif;
   font-style: normal;
-  font-weight: 400;
-  src: local("Source Serif Pro"), local("Source Serif Pro"), url(../fonts/SourceSerifPro-Regular.otf) format("otf"); }
+  font-weight: 400; }
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
@@ -1853,21 +1852,21 @@ html {
   max-height: 100%; }
 
 body {
-  font-family: "Ubuntu", sans-serif;
+  font-family: "Karla", sans-serif;
   font-size: 1em;
   color: #666666; }
 
 ::selection {
-  background: #979dbd; }
+  background: #78ddff; }
 
 ::-moz-selection {
-  background: #979dbd; }
+  background: #78ddff; }
 
 a {
   text-decoration: none;
-  color: #3D4260; }
+  color: #008FBF; }
   a:hover {
-    color: #1f2231;
+    color: #005673;
     -o-transition: .5s;
     -ms-transition: .5s;
     -moz-transition: .5s;
@@ -1881,7 +1880,7 @@ h5,
 h5 {
   margin-top: .8em;
   margin-bottom: .4em;
-  font-family: "Source Serif Pro", serif;
+  font-family: "Georgia", serif;
   font-weight: lighter;
   color: #333333;
   -webkit-font-smoothing: antialiased; }
@@ -1923,7 +1922,7 @@ blockquote {
   background: #F8F8F8;
   border: 1px solid #EEEEEE;
   border-radius: 3px;
-  font-family: "Source Serif Pro", serif;
+  font-family: "Georgia", serif;
   font-weight: lighter;
   font-style: italic;
   font-size: 1.3em;
@@ -1984,7 +1983,7 @@ pre {
     .time a:hover,
     .author a:hover,
     .tags a:hover {
-      color: #1f2231; }
+      color: #005673; }
 
 .excerpt {
   margin: 0;
@@ -1992,7 +1991,7 @@ pre {
   color: #999999; }
 
 .intro {
-  font-family: "Source Serif Pro", serif;
+  font-family: "Georgia", serif;
   font-size: 1.2em;
   font-weight: lighter;
   color: #999999; }
@@ -2014,7 +2013,7 @@ pre {
   position: relative;
   display: inline-block;
   padding: 8px 18px 9px 18px;
-  background: #3D4260;
+  background: #008FBF;
   border-radius: 3px;
   text-align: center;
   color: #FFF; }
@@ -2049,7 +2048,7 @@ pre {
     color: #a6a6a6;
     text-decoration: underline; }
     .footer__copyright a:hover {
-      color: #1f2231; }
+      color: #005673; }
 
 .avatar,
 .logo {
@@ -2336,7 +2335,7 @@ hr {
   color: #FFF; }
 
 .panel-subtitle {
-  font-family: "Source Serif Pro", serif;
+  font-family: "Georgia", serif;
   font-size: 1.2em;
   font-weight: lighter;
   letter-spacing: 3px;
@@ -2350,7 +2349,7 @@ hr {
   width: 100%;
   max-width: none;
   height: 100%;
-  background: url(../images/background-cover.jpg) top left no-repeat #666666;
+  background: url(../images/background-cover.jpg) top left no-repeat;
   background-size: cover; }
 
 .panel-cover--collapsed {
@@ -2366,6 +2365,8 @@ hr {
   bottom: 0;
   left: 0;
   background-color: rgba(68, 68, 68, 0.6);
+  background-image: -webkit-linear-gradient(-410deg, rgba(68, 68, 68, 0.6) 20%, rgba(0, 0, 0, 0.9));
+  background-image: linear-gradient(140deg,rgba(68, 68, 68, 0.6) 20%, rgba(0, 0, 0, 0.9)); }
 
 .panel-cover__logo {
   margin-bottom: .2em; }
@@ -2446,17 +2447,17 @@ hr {
 
 .btn, .navigation__item a {
   padding: 10px 20px;
-  border: 1px solid #3D4260;
+  border: 1px solid #008FBF;
   border-radius: 20px;
   font-size: .9em;
   font-weight: bold;
   letter-spacing: 1px;
   text-shadow: none;
-  color: #3D4260;
+  color: #008FBF;
   -webkit-font-smoothing: antialiased; }
   .btn:hover, .navigation__item a:hover {
-    color: #1f2231;
-    border-color: #1f2231; }
+    color: #005673;
+    border-color: #005673; }
 
 .btn-secondary {
   border-color: #5BA4E5;
@@ -2569,7 +2570,7 @@ nav {
   .post-list__post-title a {
     color: #333333; }
     .post-list__post-title a:hover {
-      color: #1f2231; }
+      color: #005673; }
 
 .post-list__meta {
   display: block;
@@ -2595,7 +2596,7 @@ nav {
   margin-left: .2em;
   margin-bottom: .2em;
   font-size: 1em;
-  font-family: "Ubuntu", sans-serif; }
+  font-family: "Georgia", serif; }
 
 @media all and (min-width: 1300px) {
   .content-wrapper {
