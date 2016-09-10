@@ -1,26 +1,21 @@
 baseurl = "http://callmeradical.com"
 languageCode = "en-us"
-contentdir = "content"
-publishdir = "public"
-builddrafts = false
-canonifyurls = true
-author = "Lars Cromley"
 title = "Lars Cromley"
-copyright = "This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License."
+theme = "hugo-material-docs"
+metadataformat = "yaml"
+canonifyurls = true
+# Enable Google Analytics by entering your tracking id
+googleAnalytics = ""
 
-[index]
-  category = "categories"
-  tag = "tags"
-
+[indexes]
+   category = "categories"
+   tag = "tags"
 [Params]
-  description = "Technologist, evangelist, and all around nerd. These thoughts are my own and do not reflect that of my employer."
-  AuthorName = "Lars Cromley"
+  AuthorName = "Lars"
   github = "callmeradical"
   twitter = "callmeradical"
-  linkedin = "callmeradical"
-  disqus = "callmeradical"
   email = "lars@callmeradical.com"
-  about = "/pages/about"
-  cover = "/images/background.jpg"
-  logo = "/images/logo-1.jpg"
-  
+  description = "Technologist, evangelist, and all around nerd. These thoughts are my own and do not reflect that of my employer."
+  linkedin = "larscromley"
+  cover = "/images/bg.jpg"
+  logo = "/images/logo.jpg"
