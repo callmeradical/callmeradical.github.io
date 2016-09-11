@@ -14,8 +14,20 @@
     
     
     <script src="http://callmeradical.com/js/jquery.min.js"></script>
-    <script src="http://callmeradical.com/js/main.min.js">
+    <script src="http://callmeradical.com/js/main.min.js"></script>
+
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-68276982-1', 'auto');
+      ga('send', 'pageview');
+
     </script>
+    
 </head>
 
   <body>
@@ -130,6 +142,9 @@
         <div class="post">
           <h1>Consolidating Snapshots in vSphere when using VDP or AVDP</h1>
           <span class="post-date">Mon, Nov 25, 2013</span>
+          <div class="feature">
+          
+          </div>
           <p>Let me start by saying this, I can&rsquo;t stand vSphere Data Protection, however I feel that since it is offered for free, and there is little to no management or maintenance for the virtual appliance, I see no reason in keeping it from my vSphere environment. That being said I still prefer to use Veeam for reliable backups of our virtual infrastructure at least on a weekly basis.</p>
 
 <p>So anyway lets get started. The few times that VDP really does give me problems is when I get a warning that tells me my VM snapshots need to be consolidated.</p>

@@ -4,16 +4,16 @@ title = "Lars Cromley"
 theme = "hugo-uno"
 metadataformat = "yaml"
 canonifyurls = true
-# Enable Google Analytics by entering your tracking id
-googleAnalytics = ""
 
 [indexes]
    category = "categories"
    tag = "tags"
+
 [Params]
   AuthorName = "Lars"
   github = "callmeradical"
   twitter = "callmeradical"
+  analytics = "UA-68276982-1"
   email = "lars@callmeradical.com"
   disqus = "callmeradical"
   description = "Technologist, evangelist, and all around nerd. These thoughts are my own and do not reflect that of my employer."

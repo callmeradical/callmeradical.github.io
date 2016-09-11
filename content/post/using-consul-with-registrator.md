@@ -1,7 +1,8 @@
 +++
 draft = false
 title = "Using Consul with Registrator"
-date = "2016-08-26T09:03:44-07:00"
+date = "2016-09-10T15:03:44-07:00"
+featuredimg = "https://www.consul.io/assets/images/logo_large-475cebb0.png"
 
 +++
 

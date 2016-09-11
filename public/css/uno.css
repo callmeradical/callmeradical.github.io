@@ -2293,6 +2293,13 @@ hr {
   border: none;
   box-shadow: none; }
 
+.feature img {
+  width: 30%;
+  margin: 0 auto;
+  border-radius: 3px;
+  display: block;
+  align-self: center; }
+
 .post img {
   max-width: 100%;
   margin: 0 auto;
