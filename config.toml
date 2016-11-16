@@ -1,22 +1,25 @@
-baseurl = "http://callmeradical.com"
-languageCode = "en-us"
+baseurl = "https://callmeradical.com"
+languageCode = "en"
 title = "Lars Cromley"
-theme = "hugo-uno"
-metadataformat = "yaml"
-canonifyurls = true
+theme = "hemingway"
+copyright = "&copy; <a href=\"https://github.com/callmeradical\">Lars Cromley</a> 2016"
+disqusShortname = "callmeradical"
+googleAnalytics = "UA-68276982-1"
 
-[indexes]
-   category = "categories"
-   tag = "tags"
+[params]
 
-[Params]
-  AuthorName = "Lars"
-  github = "callmeradical"
-  twitter = "callmeradical"
-  analytics = "UA-68276982-1"
-  email = "lars@callmeradical.com"
-  disqus = "callmeradical"
-  description = "Technologist, evangelist, and all around nerd. These thoughts are my own and do not reflect that of my employer."
-  linkedin = "larscromley"
-  cover = "/images/bg.jpg"
-  logo = "/images/logo.jpg"
+[params.highlight]
+style = "github"
+languages = ["go", "dockerfile"]
+
+[[params.social]]
+url = "https://github.com/callmeradical"
+fa_icon = "fa-github"
+
+[[params.social]]
+url = "https://twitter.com/callmeradical"
+fa_icon = "fa-twitter"
+
+[[params.social]]
+url = "/index.xml"
+fa_icon = "fa-rss"
