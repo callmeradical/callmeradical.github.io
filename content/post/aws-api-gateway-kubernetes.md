@@ -1,7 +1,7 @@
 +++
 draft = false
 date = "2016-11-15T21:10:46-05:00"
-title = "AWS API Gateway with0 Kubernetes ingress map"
+title = "AWS API Gateway with Kubernetes ingress map"
 
 +++
 
