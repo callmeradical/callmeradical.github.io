@@ -1,20 +1,257 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-      <title>Posts on Lars Cromley </title>
-      <generator uri="https://gohugo.io">Hugo</generator>
-    <link>http://callmeradical.com/post/</link>
-    <language>en-us</language>
+    <title>Posts on Lars Cromley</title>
+    <link>https://callmeradical.com/post/</link>
+    <description>Recent content in Posts on Lars Cromley</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/callmeradical&#34;&gt;Lars Cromley&lt;/a&gt; 2016</copyright>
+    <lastBuildDate>Tue, 15 Nov 2016 21:10:46 -0500</lastBuildDate>
+    <atom:link href="https://callmeradical.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    <item>
+      <title>AWS API Gateway w/ Kubernetes ingress map</title>
+      <link>https://callmeradical.com/post/aws-api-gateway-kubernetes/</link>
+      <pubDate>Tue, 15 Nov 2016 21:10:46 -0500</pubDate>
+      
+      <guid>https://callmeradical.com/post/aws-api-gateway-kubernetes/</guid>
+      <description>&lt;p&gt;Working on large scale unified APIs seems to be a popular trend. Recently I was working with
+Microsoft&amp;rsquo;s Graph API, which is their unified API. It is not unreasonable to think that many
+different teams contribute to the different resources available; mail, calendars, contacts,
+directories. However many resources, the idea is to have all of them referenced from the same
+endpoint.&lt;/p&gt;
+
+&lt;p&gt;Ideally each team could use whatever language, whatever technology best worked for them. AWS API
+Gateway fullfills that easily.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Note: This post makes the assumption that you have a functional Kubernetes cluster&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;First we are going to create a new api in Service Gateway.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ aws apigateway create-rest-api --name demo
+$ export API_ID=&amp;lt;created api id&amp;gt;
+$ aws apigateway get-resources --rest-api-id=$API_ID
+$ export PARENT_ID=&amp;lt;resource id&amp;gt;
+$ aws apigateway create-resource \
+	--rest-api-id=$API_ID \
+	--parent-id=$PARENT_ID \
+	--path-part=&amp;quot;health&amp;quot;
+$ export HEALTH_ID=&amp;lt;resource id&amp;gt;
+$ aws apigateway put-method \
+	--rest-api-id=$API_ID \
+	--resource-id $HEALTH_ID \
+	--http-method GET \
+	--authorization-type NONE
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We are going to stop with the API gateway for now, but we will come back to it.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s take a look at the app we are going to be running.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/callmeradical/healthy&#34;&gt;Source Code @ Github&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;package main
+
+import (
+	&amp;quot;encoding/json&amp;quot;
+	&amp;quot;log&amp;quot;	
+	&amp;quot;net/http&amp;quot;
+)
+
+type Response struct {
+	Version	string `json:&amp;quot;version&amp;quot;`
+	Message string `json:&amp;quot;message&amp;quot;`
+}
+
+func healthz(w http.ResponseWriter, r *http.Request) {
+	res := Response{
+		Version: &amp;quot;v1.0&amp;quot;,
+		Message: &amp;quot;We are Healthy!&amp;quot;,
+ 	}
+
+	str, err := json.MarshalIndent(&amp;amp;res, &amp;quot;&amp;quot;, &amp;quot;\t&amp;quot;)
+	if err != nil {
+		log.Println(err.Error())
+	}
+
+	w.Write(string(str))
+}
+
+func main() {
+	http.HandleFunc(&amp;quot;/health&amp;quot;, healthz)
+	err := http.ListenAndServe(&amp;quot;:8080&amp;quot;, nil)
+	if err != nil {
+		log.Fatal(&amp;quot;ListenAndServe: &amp;quot;, err)
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The app we are going to use is a restful application that responds to a GET on the /health endpoint
+on port 8080 and prints &amp;ldquo;We are healthy!&amp;rdquo;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: healthy
+  name: healthy
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: healthy
+      name: healthy
+    spec:
+      containers:
+        - name: healthy
+          image: &amp;quot;callmeradical/healthy:1.0.0&amp;quot;
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: healthy-app
+  labels:
+    app: healthy
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: healthy
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So now this little snippet of yaml will create a deployment in kubernetes and
+expose it. Let&amp;rsquo;s go ahead and deploy our app. While we are at it we can verify our
+app is in fact actually running and serving traffic.&lt;/p&gt;
+
+&lt;p&gt;From the root of the cloned project:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ kubectl create -f kubernetes/healthy-deployment-svc.yml
+$ kubectl get pods
+$ kubectl port-forward &amp;lt;name of pod here&amp;gt; 8080:8080
+$ curl localhost:8080/health
+{
+	&amp;quot;version&amp;quot;: &amp;quot;v1.0&amp;quot;,
+	&amp;quot;message&amp;quot;: &amp;quot;We are Healthy!&amp;quot;
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;A Deployment provides declarative updates for Pods and Replica Sets (the next-generation
+Replication Controller). You only need to describe the desired state in a Deployment object,
+and the Deployment controller will change the actual state to the desired state at a
+controlled rate for you. You can define Deployments to create new resources,
+or replace existing ones by new ones.&lt;/p&gt;
+
+&lt;p&gt;&amp;ndash; Kubernetes Documentation @ (&lt;a href=&#34;http://kubernetes.io/docs/user-guide/deployments/#what-is-a-deployment&#34;&gt;http://kubernetes.io/docs/user-guide/deployments/#what-is-a-deployment&lt;/a&gt;)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Now we have our app, a skeleton for API Gateway, but we aren&amp;rsquo;t quite done. We still need to create our
+ingress map, our nginx controller, and finish creating the API gateway. Let&amp;rsquo;s start working on deploying
+the ingress controller. An ingress controller is a daemon that is deployed as a kubernetes pod. That pod
+watches the API server&amp;rsquo;s /ingresses endpoint for updates to the ingress resource. Its job is to satisfy
+requests for ingress.&lt;/p&gt;
+
+&lt;p&gt;We aren&amp;rsquo;t going to write our controller, as that is out of the scope of this post, but we are going to use
+the example controller used on the Kubernetes site, the nginx controller. The nginx controller does the following:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Poll until apiserver reports a new ingress&lt;/li&gt;
+&lt;li&gt;write the nginx config file based on a go text/template&lt;/li&gt;
+&lt;li&gt;Reload nginx&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Describe Kubernetes ingress map&lt;/li&gt;
+&lt;li&gt;Create Ingress Nginx/Controller&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
     
-    <updated>Sat, 10 Sep 2016 15:03:44 -0700</updated>
+    <item>
+      <title>Raft for Dummies and those like me.</title>
+      <link>https://callmeradical.com/post/raft-for-dummies/</link>
+      <pubDate>Sun, 11 Sep 2016 19:28:49 -0500</pubDate>
+      
+      <guid>https://callmeradical.com/post/raft-for-dummies/</guid>
+      <description>
+
+&lt;p&gt;This is going to be my very feeble attempt to explain the Raft consensus algorithm.  The very least I will accomplish is sharing the material I have read about Raft and how I have come to understand it. Raft is used in popular pieces of software such as RethinkDB, etcd, and a number of Hashicorp products.(&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;)&lt;/p&gt;
+
+&lt;h3 id=&#34;what-is-raft&#34;&gt;What is Raft?&lt;/h3&gt;
+
+&lt;p&gt;Raft was developed in the hopes of creating an easy to understand consensus algorithm. As far as that goes, I think they succeeded, especially when compared with similiar algorithms, such as &lt;a href=&#34;https://en.wikipedia.org/wiki/Paxos_(computer_science)&#34;&gt;Paxos&lt;/a&gt;(I am still working this one out). Consensus algorithms allow a collection of machines to work as a coherent group that can survive the failures of some of its members.(&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:2&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:2&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;)&lt;/p&gt;
+
+&lt;p&gt;To really understand this, lets take a step back and talk about what makes up a distributed system. Wikipedia has a really great definition on the &lt;a href=&#34;https://en.wikipedia.org/wiki/Distributed_computing&#34;&gt;Distributed Computing page&lt;/a&gt;:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;A distributed system is a model in which components located on networked computers communicate and coordinate their actions by passing messages.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The consensus algorithm is how these computers coordinate their actions. Implementing a consensus algorithm is typically necessary in the context of &lt;em&gt;replicated state machines&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;A common implementation of a replicated state machine, uses a replicated log. In otherwords, the following is true:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Multiple logs containing a series of commands or transactions.&lt;/li&gt;
+&lt;li&gt;Each log must contain the same instructions in the same order.&lt;/li&gt;
+&lt;li&gt;Each machine processes the same sequence of commands.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A commonplace example of this, at least in most enterprise shops, is Zookeeper. Zookeeper is an example of a replicated state machine.&lt;img src=&#34;https://dl.dropboxusercontent.com/s/eahsi12m5jov22u/statemachine.png&#34; alt=&#34;cloudcraft - RSM (1)&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This is the basic design of state machine architecture. Client sends a message to the consensus module, the consensus module replicates the transaction to multiple logs, the state machine reads from the logs and returns the value or transaction back to the client.&lt;/p&gt;
+
+&lt;p&gt;The log is very important. The consensus algorithm is the manner in which we keep the replicated log consistent. The consensus module on a node receives instructions from clients, adds them to its log, and it communicates to other servers to ensure that every log eventually contains all requests in the in which they were received, even if some servers fail. After the commands are properly replicated, each server&amp;rsquo;s state machine processes them in log order, and output is returned to the client nodes. The outcome, is a system that appears to be a single, highly reliable, state machine. This is true with the exception of Byzantine conditions(&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:3&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:3&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;) (network delays, partitions, packet loss, duplication, and reordering).&lt;/p&gt;
+
+&lt;p&gt;In Raft a node can be in 1 of 3 states:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The Follower state&lt;/li&gt;
+&lt;li&gt;The Candidate state&lt;/li&gt;
+&lt;li&gt;The Leader state&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;All nodes start in the follower state. If Followers don&amp;rsquo;t hear from a leader then they can become a candidate. The candidate then requests votes from other nodes. Nodes reply with their vote. The candidate becomes the leader if it gets votes from a majority of nodes. This is the process called &lt;em&gt;Leader Election&lt;/em&gt;. All changes now flow through the leader. Each change is added as an entry in the node&amp;rsquo;s log. The log entry is uncommitted and as such will not update the node&amp;rsquo;s value, instead, the node first replicates it to the follower nodes, then the leader waits until a majority of nodes have written the entry, and is then committed to the leader node. The leader then notifies the followers that the entry is committed. The cluster has then come to a consensus. This is log replication.&lt;/p&gt;
+
+&lt;p&gt;Leader Election&lt;/p&gt;
+
+&lt;p&gt;In Raft there are two timeout settings which control elections, &lt;em&gt;Election Timeout&lt;/em&gt;, and &lt;em&gt;Heartbeat Timeout&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Election timeout is the amount of time a follower waits until becoming a candidate. Election timeout is randomized to be between 150 ms and 300 ms. After the election timeout the follower becomes a candidate and starts a new election term, votes for itself, and sends out Request Vote messages to other nodes. If the receiving node hasn&amp;rsquo;t voted yet in this term then it votes for the candidate, and the node resets its election timeout. Once a candidate has a majority of votes it becomes leader.&lt;/p&gt;
+
+&lt;p&gt;The leader begins sending out Append Entries messages to its followers. These messages are sent in intervals specified by the heartbeat timeout. Followers then respond to each Append Entries message. This election term will continue until a follower stops receiving heartbeats and becomes a candidate. Requiring a majority of votes guarantees that only one leader can be elected per term. If two nodes become candidates at the same time then a split vote can occur. In the event of a split vote, say we had four nodes, two nodes both start an election for the same term, and each reaches a single follower node before the other. Now each candidate has 2 votes and can receive no more for this term. The nodes will wait for a new election and try again. This will continue until majority is reached.(&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:4&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:4&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;)&lt;/p&gt;
+
+&lt;p&gt;Raft was created to be easier to understand than Paxos. There is a conference specifically for systems design called the NSDI (Networked Systems Design and Implementation) and someone there even voiced concern about people understanding all components of Paxos. Claiming that there only 5 people are the conference that understood it completely. Whether or not that is true. I can say for sure, Raft is definitely easier to understand and has succeeded in that mission.&lt;/p&gt;
+
+&lt;h3 id=&#34;references&#34;&gt;References&lt;/h3&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;&lt;a href=&#34;https://raft.github.io/#implementations&#34;&gt;Raft Implementations&lt;/a&gt; |
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;&lt;a href=&#34;https://raft.github.io/raft.pdf&#34;&gt;In Search of an Understandable Consesus Algorithm &lt;/a&gt; |
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:2&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34;&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Byzantine_fault_tolerance&#34;&gt;Byzantine fault tolerance&lt;/a&gt; |
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:3&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:4&#34;&gt;&lt;a href=&#34;http://thesecretlivesofdata.com/raft/#home&#34;&gt;The Secret Lift of Data - Raft&lt;/a&gt; |
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:4&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Using Consul with Registrator</title>
-      <link>http://callmeradical.com/post/using-consul-with-registrator/</link>
+      <link>https://callmeradical.com/post/using-consul-with-registrator/</link>
       <pubDate>Sat, 10 Sep 2016 15:03:44 -0700</pubDate>
       
-      <guid>http://callmeradical.com/post/using-consul-with-registrator/</guid>
+      <guid>https://callmeradical.com/post/using-consul-with-registrator/</guid>
       <description>&lt;p&gt;Service discovery is not new, but I still see plenty of shops storing their configuration in the form of configuration files or hardcoded objects. Connecting to an instance of MySQL or Redis and hard coding connection strings beforehand doesn&amp;rsquo;t allow one to take full advantage of dynamic resources and also doesn&amp;rsquo;t allow for treating them as backing resources.&lt;/p&gt;
 
 &lt;p&gt;We are going to take a quick walk through setting up a &lt;a href=&#34;consul.io&#34;&gt;consul&lt;/a&gt; cluster using docker-machine and have &lt;a href=&#34;http://gliderlabs.com/registrator/latest/&#34;&gt;registrator&lt;/a&gt; dynamically create entries in consul&amp;rsquo;s service catalog. This post goes on the assumption that you have the Docker toolkit installed/configured with VirtualBox and some working knowledge of docker in general.&lt;/p&gt;
@@ -166,10 +403,10 @@ $ curl localhost:8500/v1/catalog/service/redis
     
     <item>
       <title>Benchmarking Amazon&#39;s Aurora</title>
-      <link>http://callmeradical.com/post/aurora-benchmark/</link>
-      <pubDate>Wed, 07 Sep 2016 11:57:11 EDT</pubDate>
+      <link>https://callmeradical.com/post/aurora-benchmark/</link>
+      <pubDate>Wed, 07 Sep 2016 11:57:11 -0400</pubDate>
       
-      <guid>http://callmeradical.com/post/aurora-benchmark/</guid>
+      <guid>https://callmeradical.com/post/aurora-benchmark/</guid>
       <description>&lt;p&gt;I saw this study by the folks over at &lt;a href=&#34;https://cloudplatform.googleblog.com/2016/08/Cloud-SQL-Second-Generation-performance-and-feature-deep-dive.html&#34;&gt;Google and their 2nd Generation Cloud SQL&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;The results they posted didn&amp;rsquo;t exactly mirror what I saw when running the benchmarks for myself.
@@ -185,10 +422,10 @@ You can get the raw data here @ &lt;a href=&#34;https://github.com/2ndWatch/auro
     
     <item>
       <title>Free advice from a Terraform user</title>
-      <link>http://callmeradical.com/post/free-advice-from-a-terraform-user/</link>
-      <pubDate>Thu, 31 Mar 2016 20:40:23 EDT</pubDate>
+      <link>https://callmeradical.com/post/free-advice-from-a-terraform-user/</link>
+      <pubDate>Thu, 31 Mar 2016 20:40:23 -0400</pubDate>
       
-      <guid>http://callmeradical.com/post/free-advice-from-a-terraform-user/</guid>
+      <guid>https://callmeradical.com/post/free-advice-from-a-terraform-user/</guid>
       <description>&lt;p&gt;Firstly a huge thank you goes out to &lt;a href=&#34;https://twitter.com/mipsytipsy?lang=en&#34;&gt;@mipsytipsy&lt;/a&gt; for this awesome post mortem on what appears to be or what could have been one of the worst outages of her career.&lt;/p&gt;
 
 &lt;blockquote&gt;
@@ -203,10 +440,10 @@ You can get the raw data here @ &lt;a href=&#34;https://github.com/2ndWatch/auro
     
     <item>
       <title>Container best practices from RedHat</title>
-      <link>http://callmeradical.com/post/container-best-practices-from-redhat/</link>
-      <pubDate>Thu, 31 Mar 2016 16:03:39 EDT</pubDate>
+      <link>https://callmeradical.com/post/container-best-practices-from-redhat/</link>
+      <pubDate>Thu, 31 Mar 2016 16:03:39 -0400</pubDate>
       
-      <guid>http://callmeradical.com/post/container-best-practices-from-redhat/</guid>
+      <guid>https://callmeradical.com/post/container-best-practices-from-redhat/</guid>
       <description>&lt;p&gt;I came across this post in a slack channel earlier today and thought it was some pretty sound advice for those starting out in the container eco system.&lt;/p&gt;
 
 &lt;blockquote&gt;
@@ -225,10 +462,10 @@ You can get the raw data here @ &lt;a href=&#34;https://github.com/2ndWatch/auro
     
     <item>
       <title>Multitasking? You want to talk about multitasking?</title>
-      <link>http://callmeradical.com/post/multitasking-you-want-to-talk-about-multitasking/</link>
+      <link>https://callmeradical.com/post/multitasking-you-want-to-talk-about-multitasking/</link>
       <pubDate>Tue, 08 Mar 2016 06:32:21 -0400</pubDate>
       
-      <guid>http://callmeradical.com/post/multitasking-you-want-to-talk-about-multitasking/</guid>
+      <guid>https://callmeradical.com/post/multitasking-you-want-to-talk-about-multitasking/</guid>
       <description>&lt;p&gt;Reading is definitely a passion for me. I love reading every chance I get. So few books have stuck with me or have become even a flavor of the week that I feel like I have to recommend Greg McKeown&amp;rsquo;s Essentialism again.&lt;/p&gt;
 
 &lt;p&gt;I came by another post, not long after reading Greg&amp;rsquo;s book, talking about priorities and the nonsense it creates.&lt;/p&gt;
@@ -248,10 +485,10 @@ Yes, we are capable of doing two things at the same time. It is possible, for ex
     
     <item>
       <title>SQL Server on Linux?</title>
-      <link>http://callmeradical.com/post/sql-server-on-linux/</link>
+      <link>https://callmeradical.com/post/sql-server-on-linux/</link>
       <pubDate>Tue, 08 Mar 2016 05:20:05 -0400</pubDate>
       
-      <guid>http://callmeradical.com/post/sql-server-on-linux/</guid>
+      <guid>https://callmeradical.com/post/sql-server-on-linux/</guid>
       <description>&lt;p&gt;Yeah you saw that right. This new Microsoft confuses me almost on a daily basis. Part of me thinks that this is awesome, and then another part yells at me for thinking it is awesome.&lt;/p&gt;
 
 &lt;p&gt;I think it is great that Microsoft is looking to make good with the open-source community. They are the second largest contributor to Docker outside of Docker, and now this push to put SQL Server on Linux is yet another attempt to break bread.&lt;/p&gt;
@@ -272,10 +509,10 @@ Yes, we are capable of doing two things at the same time. It is possible, for ex
     
     <item>
       <title>You cannot overestimate the unimportance of practically everything.</title>
-      <link>http://callmeradical.com/post/you-cannot-overestimate-the-unimportance-of-practically-everything/</link>
+      <link>https://callmeradical.com/post/you-cannot-overestimate-the-unimportance-of-practically-everything/</link>
       <pubDate>Thu, 28 Jan 2016 03:52:59 -0400</pubDate>
       
-      <guid>http://callmeradical.com/post/you-cannot-overestimate-the-unimportance-of-practically-everything/</guid>
+      <guid>https://callmeradical.com/post/you-cannot-overestimate-the-unimportance-of-practically-everything/</guid>
       <description>&lt;p&gt;I don&amp;rsquo;t typically subscribe to books about decision-making or &amp;ldquo;life hacking&amp;rdquo; or even time management.&lt;/p&gt;
 
 &lt;p&gt;I just finished my second read of Essentialism by Greg McKeown. I read through it the first time, and I was skeptical. After my second read, I can say I am a believer.&lt;/p&gt;
@@ -296,16 +533,16 @@ Yes, we are capable of doing two things at the same time. It is possible, for ex
 
 &lt;p&gt;&lt;a href=&#34;http://www.amazon.com/Essentialism-Disciplined-Pursuit-Greg-McKeown/dp/0804137382/ref=sr_1_1?s=books&amp;amp;ie=UTF8&amp;amp;qid=1453951553&amp;amp;sr=1-1&amp;amp;keywords=essentialism+the+disciplined+pursuit+of+less&#34;&gt;Essentialism, buy it on Amazon&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://callmeradical.com/content/images/2016/01/essentialism.jpg&#34; height=&#34;600&#34;/&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://callmeradical.com/content/images/2016/01/essentialism.jpg&#34; height=&#34;600&#34;/&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Lambda, Docker/ECS, and S3... sitting in a tree.</title>
-      <link>http://callmeradical.com/post/aws-techconnect-seattle/</link>
-      <pubDate>Wed, 28 Oct 2015 00:59:36 EDT</pubDate>
+      <link>https://callmeradical.com/post/aws-techconnect-seattle/</link>
+      <pubDate>Wed, 28 Oct 2015 00:59:36 -0400</pubDate>
       
-      <guid>http://callmeradical.com/post/aws-techconnect-seattle/</guid>
+      <guid>https://callmeradical.com/post/aws-techconnect-seattle/</guid>
       <description>&lt;p&gt;To go along with a talk I am doing this week, I created a demo project to reinforce the idea behind ephemeral architecture and infrastructure as code.&lt;/p&gt;
 
 &lt;p&gt;We create two S3 buckets for the purpose of intake and another to serve out a static site we will be generating using ECS.&lt;/p&gt;
@@ -402,10 +639,10 @@ aws s3 sync _site $SITE
     
     <item>
       <title>Tetris... err... Getting Started with Kubernetes</title>
-      <link>http://callmeradical.com/post/getting-started-with-k8s/</link>
-      <pubDate>Wed, 30 Sep 2015 02:39:08 EDT</pubDate>
+      <link>https://callmeradical.com/post/getting-started-with-k8s/</link>
+      <pubDate>Wed, 30 Sep 2015 02:39:08 -0400</pubDate>
       
-      <guid>http://callmeradical.com/post/getting-started-with-k8s/</guid>
+      <guid>https://callmeradical.com/post/getting-started-with-k8s/</guid>
       <description>&lt;p&gt;After watching &lt;a href=&#34;https://twitter.com/kelseyhightower&#34;&gt;@kelseyhightower&amp;rsquo;s&lt;/a&gt; speech at &lt;a href=&#34;https://www.youtube.com/watch?v=pozC9rBvAIs&#34;&gt;Strangeloop 2015.&lt;/a&gt; I was really impressed at the ease of instruction and demonstration he showed. I had not played with Kubernetes aside from using the kube-up.sh script in the github repo with the EC2 provider.&lt;/p&gt;
 
 &lt;p&gt;He starts off the talk by saying:
@@ -465,10 +702,10 @@ influxGrafana is running at https://XX.XX.XX.XX/api/v1beta3/proxy/namespaces/def
     
     <item>
       <title>Eight Docker Development Patterns</title>
-      <link>http://callmeradical.com/post/eight-docker-dev-patterns/</link>
-      <pubDate>Tue, 29 Sep 2015 02:36:55 EDT</pubDate>
+      <link>https://callmeradical.com/post/eight-docker-dev-patterns/</link>
+      <pubDate>Tue, 29 Sep 2015 02:36:55 -0400</pubDate>
       
-      <guid>http://callmeradical.com/post/eight-docker-dev-patterns/</guid>
+      <guid>https://callmeradical.com/post/eight-docker-dev-patterns/</guid>
       <description>&lt;p&gt;This was a post I had stashed away a while ago by &lt;a href=&#34;http://www.hokstad.com&#34;&gt;Vidar Hokstad&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;He goes into some of the uses he has been seeing/using docker for. I have used some of these and I am sure there are even more development patterns out there now. The one I am most  interested in is the &amp;lsquo;installer&amp;rsquo; container as he calls it.&lt;/p&gt;
@@ -498,10 +735,10 @@ This is not my own, but really deserves a mention. The excellent nsenter and doc
     
     <item>
       <title>Working with octopress... in a container.</title>
-      <link>http://callmeradical.com/post/working-with-octopress-dot-dot-dot-in-a-container/</link>
-      <pubDate>Fri, 25 Sep 2015 05:33:56 EDT</pubDate>
+      <link>https://callmeradical.com/post/working-with-octopress-dot-dot-dot-in-a-container/</link>
+      <pubDate>Fri, 25 Sep 2015 05:33:56 -0400</pubDate>
       
-      <guid>http://callmeradical.com/post/working-with-octopress-dot-dot-dot-in-a-container/</guid>
+      <guid>https://callmeradical.com/post/working-with-octopress-dot-dot-dot-in-a-container/</guid>
       <description>&lt;p&gt;So I have been on a bit of a kick with Docker. I have been in Boston talking
 about it, giving webinars on it, and using it just about everywhere in every
 which way I can.&lt;/p&gt;
@@ -630,10 +867,10 @@ post, I can just use&lt;/p&gt;
     
     <item>
       <title>It&#39;s that time again...</title>
-      <link>http://callmeradical.com/post/its-that-time-again-dot-dot-dot/</link>
-      <pubDate>Thu, 24 Sep 2015 16:07:36 EDT</pubDate>
+      <link>https://callmeradical.com/post/its-that-time-again-dot-dot-dot/</link>
+      <pubDate>Thu, 24 Sep 2015 16:07:36 -0400</pubDate>
       
-      <guid>http://callmeradical.com/post/its-that-time-again-dot-dot-dot/</guid>
+      <guid>https://callmeradical.com/post/its-that-time-again-dot-dot-dot/</guid>
       <description>&lt;p&gt;Well it is that time again. AWS re:Invent is right around the corner and I will
 once again be making the trek to beautiful Las Vegas. I am looking forward to
 seeing some familiar faces and even more excited to see what new service
@@ -649,10 +886,10 @@ be providing some commentary around some of the new products from various vendor
     
     <item>
       <title>Shared environments and toolsets</title>
-      <link>http://callmeradical.com/post/pair-programming-with-screen-and-vim/</link>
+      <link>https://callmeradical.com/post/pair-programming-with-screen-and-vim/</link>
       <pubDate>Sat, 07 Mar 2015 02:05:52 -0400</pubDate>
       
-      <guid>http://callmeradical.com/post/pair-programming-with-screen-and-vim/</guid>
+      <guid>https://callmeradical.com/post/pair-programming-with-screen-and-vim/</guid>
       <description>&lt;p&gt;Hey Andre, Look at this!&lt;/p&gt;
 
 &lt;p&gt;Over the past 5 months I have been working on a team of about five people on a shared workstation.&lt;/p&gt;
@@ -690,81 +927,6 @@ into a certain type of workflow and by using all the same tools it has become mu
 support one another.&lt;/p&gt;
 
 &lt;p&gt;Probably not a huge surprise.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Data Share</title>
-      <link>http://callmeradical.com/post/weekly-data-share/</link>
-      <pubDate>Mon, 25 Nov 2013 16:44:12 -0400</pubDate>
-      
-      <guid>http://callmeradical.com/post/weekly-data-share/</guid>
-      <description>&lt;p&gt;Starting this week I am going to start sharing an assortment of links weekly that I have found interesting through the course of my week. These may not be necessarily be new. Also,
-I won&amp;rsquo;t be shouting out to anyone in particular but if you or your material end up on this list, thanks in advance!&lt;/p&gt;
-
-&lt;!-- more --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/sferik/t&#34;&gt;Twitter CLI: t&lt;/a&gt;
-a command line twitter app which is pretty awesome.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;a href=&#34;http://nvd.nist.gov/home.cfm&#34;&gt;National Vulnerability Database&lt;/a&gt; this has been around for a while and might be old hat for most of you out there, however people newer to system administration will find a wealth of information here, relating to the security of their infrastructure.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;a href=&#34;http://mylinuxbook.com/linux-netcat-command/&#34;&gt;netcat - swiss army knife of networking&lt;/a&gt; There are so many different ways to use netcat, I think my favorite is the impromptu chat server or file transmission.&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The last two were sent to me from some colleagues earlier in the year that attended the Burlington Ruby Conference this year. I just finally got around to checking them out. Thanks @Tamman!&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&#34;http://confreaks.com/videos/2618-btvruby2013-particular-particulars-about-zero-downtime-deploys&#34;&gt;Zero downtime Deploys @ Burlington Ruby 2013&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;a href=&#34;http://confreaks.com/videos/2618-btvruby2013-particular-particulars-about-zero-downtime-deploys&#34;&gt;Realtime Rails @ Burlington Ruby Conference&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Thanks to those that have shared this information, you have all made my life a little bit easier.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>AWS re:Invent recap</title>
-      <link>http://callmeradical.com/post/aws-reinvent-recap/</link>
-      <pubDate>Mon, 25 Nov 2013 16:07:14 -0400</pubDate>
-      
-      <guid>http://callmeradical.com/post/aws-reinvent-recap/</guid>
-      <description>&lt;p&gt;So we are about half-way through day 1 of Amazon&amp;rsquo;s re:Invent and let me be the first to say, so far everything has been great.&lt;/p&gt;
-
-&lt;p&gt;Registration was amazingly fast, all of the staff have been incredibly polite, and immediately after getting through registration I got my first piece of swag!&lt;/p&gt;
-
-&lt;p&gt;So it is not all sunshine and rainbows, there is some work to be done.&lt;/p&gt;
-
-&lt;p&gt;Today I started off with a hands-on lab getting my hands into setting up security profiles with the IAM credential system
-and then configurring instances of S3, EC2, and EBS.&lt;/p&gt;
-
-&lt;p&gt;The first few hours have been very informative and I am very excited to be one of the lucky ones attending this awesome conference.&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;So Day 2 came and went just as quickly as it arrived. The sessions have proven to be very informative and even more so it is the vendors that are really making things happen here.&lt;/p&gt;
-
-&lt;p&gt;I was able to get more insight in how Engineyard provisions it&amp;rsquo;s instances and got a chance to talk to the folks over at Opscode about chef and chef-solo.&lt;/p&gt;
-
-&lt;p&gt;Netflix highlighted some really awesome techniques in deployment management and I look forward to posting more information about it in the future.&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;So AWS re:Invent is officially over and I am back on the plane to Philadelphia.&lt;/p&gt;
-
-&lt;p&gt;Such an awesome collection of talent, innovation, and vision. The vendors were generous and our host magnanimous.
-The climax of the entire week was at the re:Play event hosted by Intel, where Deadmau5 was alying down the beat for the night.
-There was a wide assortment of industries represented and everyone was very keen on showing best practices.&lt;/p&gt;
-
-&lt;p&gt;We can&amp;rsquo;t forget the new services that were released this week with Workspaces, Kinesis, upgrades to EC2 instances, Postgresql comes to RDS, and many more improvements to our digital playground.&lt;/p&gt;
-
-&lt;p&gt;It has come to a point where AWS is almost too big to fail, and somehow I am ok with that. They have given us an incredible new frontier to make visions a reality
-and the opportunity to exact change in deadlocked industries. Startups stand a chance against the enterprises of yesterday. Companies like Airbnb, Spotify, and others have already made an impact in seemingly
-inpenetrable industries and they are shaking things up.&lt;/p&gt;
-
-&lt;p&gt;You can say I drank the kool aid or whatever you want, but my question to you is why not? It tastes good.&lt;/p&gt;
 </description>
     </item>
     

@@ -2,7 +2,7 @@
 <html lang="en">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Consolidating Snapshots in vSphere when using VDP or AVDP | Lars Cromley</title>
+<title>AWS Service Gateway w/ Kubernetes ingress map | Lars Cromley</title>
 <link rel="stylesheet" href="https://callmeradical.com/css/style.css">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
@@ -44,52 +44,10 @@
 
 <section class="section">
   <div class="container">
-    <h2 class="subtitle is-6">November 25, 2013</h2>
-    <h1 class="title">Consolidating Snapshots in vSphere when using VDP or AVDP</h1>
+    <h2 class="subtitle is-6">November 15, 2016</h2>
+    <h1 class="title">AWS Service Gateway w/ Kubernetes ingress map</h1>
     <div class="content">
-      <p>Let me start by saying this, I can&rsquo;t stand vSphere Data Protection, however I feel that since it is offered for free, and there is little to no management or maintenance for the virtual appliance, I see no reason in keeping it from my vSphere environment. That being said I still prefer to use Veeam for reliable backups of our virtual infrastructure at least on a weekly basis.</p>
-
-<p>So anyway lets get started. The few times that VDP really does give me problems is when I get a warning that tells me my VM snapshots need to be consolidated.</p>
-
-<!-- more -->
-
-<p>Like a good sysadmin, I listen to what the system is telling me and I attempt to do just that.</p>
-
-<p>Inside the vSphere web interface I go to the VM, select actions, go to &lsquo;All vCenter Actions&rsquo;, navigate to snapshots, and click Consolidate. Voila!</p>
-
-<p>Wrong.</p>
-
-<p>I get a message stating that an unspecified file is locked. (Actual error message may vary, and at the bottom of this post you can see some of the messages that this applies to.)</p>
-
-<p>Well, that isn&rsquo;t very helpful at all. So I shut down the VM in question and attempt to consolidate again. No joy.</p>
-
-<p>After some googling, I found that this is really only specific to if you are using the VDP or AVDP appliance by VMware. The reason for this, exists in the process of by which VDP creates backups.
-<em>Taken from vmware.com&rsquo;s knowledgebase</em></p>
-
-<blockquote>
-<p>Before backing up a virtual machine, the backup software takes a snapshot of the virtual machine. The backup software then mounts the virtual machine disk (.vmdk) on the backup appliance virtual machine to perform the backup. After the data is backed up, the appliance remove the .vmdk and the snapshot is deleted from the virtual machine.</p>
-
-<p>In some cases, the backup appliance may not release the lock on the .vmdk after the backup process, and snapshot commit/consolidation operations fail due to the lock.</p>
-
-<p>Note: The issue described in this article is applicable only when the backup appliance is running on a virtual machine/appliance.</p>
-</blockquote>
-
-<p>So if you are having a problem, try this&hellip;</p>
-
-<p>To remove the .vmdk from the backup appliance and commit/consolidate the snapshot:</p>
-
-<ol>
-<li><p>Right-click the backup appliance virtual machine and click Edit Settings.</p></li>
-
-<li><p>Check if the affected virtual machine&rsquo;s hard disk is mounted on the backup appliance virtual machine.</p></li>
-
-<li><p>If the hard disk is mounted, select the hard disk and click Remove.</p></li>
-</ol>
-
-<p><em>Note:</em> Under Removal Options, ensure to select the Remove from virtual machine option.</p>
-
-<p>Click OK to exit.</p>
-
+      
     </div>
   </div>
 </section>
