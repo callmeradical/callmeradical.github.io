@@ -1,4 +1,4 @@
-baseurl = "https://callmeradical.com"
+baseurl = "http://callmeradical.com"
 languageCode = "en"
 title = "Lars Cromley"
 theme = "hemingway"
