@@ -6,11 +6,17 @@ copyright = "&copy; <a href=\"https://github.com/callmeradical\">Lars Cromley</a
 disqusShortname = "callmeradical"
 googleAnalytics = "UA-68276982-1"
 
+Paginate = 15 
+PaginatePath = "content/post/"
 [params]
 
 [params.highlight]
 style = "github"
 languages = ["go", "dockerfile"]
+
+[[params.social]]
+url = "/resume/resume"
+fa_icon = "fa-id-badge"
 
 [[params.social]]
 url = "https://github.com/callmeradical"
@@ -23,3 +29,4 @@ fa_icon = "fa-twitter"
 [[params.social]]
 url = "/index.xml"
 fa_icon = "fa-rss"
+

@@ -1,5 +1,6 @@
 +++
 title = "Adding the version number of your rails app using git"
+type = "post"
 draft = false
 date = "2013-11-25T16:07:14.000Z"
 
