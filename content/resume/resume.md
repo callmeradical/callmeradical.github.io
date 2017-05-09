@@ -12,6 +12,14 @@ type = "resume"
 - Terraform
 
 ## Jobs
+### Director of Engineering, Automation at 2nd Watch
+*April 2017 - Present*
+
+I work with our engineers and product teams to; Adopt cloud native technologies,
+drive cultural change, solve client delivery issues, and speed up the delivery of
+business value. We focus on quality, well architected solutions, that automate business
+process and eliminate waste.
+
 ### Sr. Product Manager at 2nd Watch
 *March 2016 - Present*
 

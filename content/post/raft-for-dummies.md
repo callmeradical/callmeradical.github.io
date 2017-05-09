@@ -3,7 +3,7 @@ draft = false
 date = "2016-09-11T19:28:49-05:00"
 title = "Raft for Dummies and those like me."
 
-featuredimg = "https://dl.dropboxusercontent.com/s/6ayy2yfyl2j2qtc/raft.png"
+image = "https://dl.dropboxusercontent.com/s/6ayy2yfyl2j2qtc/raft.png"
 +++
 
 This is going to be my very feeble attempt to explain the Raft consensus algorithm.  The very least I will accomplish is sharing the material I have read about Raft and how I have come to understand it. Raft is used in popular pieces of software such as RethinkDB, etcd, and a number of Hashicorp products.([^1])
