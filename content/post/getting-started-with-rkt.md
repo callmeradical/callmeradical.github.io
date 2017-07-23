@@ -17,13 +17,7 @@ almost 50% of the codebase was based off of LXC at the time.
 
 So by my own admission I had used Docker almost exclusively for the past two years. I had never really given RKT a chance. 
 I wanted to see exactly how different it was running RKT as opposed to Docker, not just for the novelty, but to really see
-if there was something fundamentally different in the experience.
-
-Let's begin.
-
-
-
-## Getting Started
-
-I am following the tutorial/getting started guide from [CoreOS](https://coreos.com/rkt/docs/latest/trying-out-rkt.html)
+if there was something fundamentally different in the experience. I followed the tutorial/getting started guide from 
+[CoreOS](https://coreos.com/rkt/docs/latest/trying-out-rkt.html). The docs were fairly straight-forward and easy to follow,
+and I highly recommend following the tutorial.
 
