@@ -1,0 +1,49 @@
+@import 'bourbon/bourbon';
+@font-face {
+  font-family: 'Ubuntu', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  src: local('Karla'), local('Karla'), url(../fonts/Karla-Regular.ttf) format('ttf');
+}
+@font-face {
+  font-family: 'Georgia', serif;
+  font-style: normal;
+  font-weight: 400;
+}
+// ------------------------------
+// THE BASICS
+// ------------------------------
+
+@import 'reset.scss';
+@import 'grid.scss';
+@import 'variables.scss';
+@import 'fontawsome/scss/font-awesome.scss';
+
+// ------------------------------
+// GLOBAL STYLES
+// ------------------------------
+
+@import 'global.scss';
+
+// ------------------------------
+// SECTIONS
+// ------------------------------
+
+@import 'sections/post.scss';
+
+// ------------------------------
+// COMPONENTS
+// ------------------------------
+
+@import 'components/panels.scss';
+@import 'components/buttons.scss';
+@import 'components/navigation.scss';
+@import 'components/pagination.scss';
+@import 'components/post-list.scss';
+
+// ------------------------------
+// MEDIA QUERIES
+// ------------------------------
+
+@import 'media-queries.scss';
+

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lars Cromley</title>
+<link rel="stylesheet" href="http://callmeradical.com/css/style.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/github.min.css">
+
+
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="http://callmeradical.com"><h1 class="title is-4">Lars Cromley</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+          <a class="level-item" href="/resume/resume">
+            <span class="icon">
+              <i class="fa fa-id-badge"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://github.com/callmeradical">
+            <span class="icon">
+              <i class="fa fa-github"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://twitter.com/callmeradical">
+            <span class="icon">
+              <i class="fa fa-twitter"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="/index.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+          </a>
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    
+    
+    <article>
+      <h2 class="subtitle is-6">November 25, 2013</h2>
+      <h1 class="title"><a href="http://callmeradical.com/post/migrating-apple-wiki-from-lion-to-mountain-lion/">Migrating Apple Wiki from Lion to Mountain Lion</a></h1>
+      <div class="content">
+        Well here is the first post to this blog with some substance to it!
+Here is a little backstory on the situation. I found myself almost immediately scouring the internet one morning when my boss had told me there was a problem with our server (at this point in time it was our only server) that was currently running OS X 10.7, Lion. I was not a fan of Lion server as it was a major departure from the server OS we all knew and loved.
+        
+        ...<a class="button is-link" href="http://callmeradical.com/post/migrating-apple-wiki-from-lion-to-mountain-lion/" style="height:28px">
+          Read more
+          <span class="icon is-small">
+            <i class="fa fa-angle-double-right"></i>
+          </span>
+        </a>
+        
+      </div>
+    </article>
+    
+    <article>
+      <h2 class="subtitle is-6">November 25, 2013</h2>
+      <h1 class="title"><a href="http://callmeradical.com/post/nitrous-io-a-dev-environment-for-everyone/">Nitrous.IO - a dev environment for everyone</a></h1>
+      <div class="content">
+        I am currently posting this article from Nitrous.IO on my Chromebook.
+Nitrous.IO is an awesome service that is still currently in Beta, that allows you to set up VM&rsquo;s ruby development. Currently it looks like they are primarily supporting Ruby, Python, JavaScript, and GO with frameworks such as Node.js, Rails, and Django. I was super excited about this service a while back and am happy to see that it is working so well.
+        
+        ...<a class="button is-link" href="http://callmeradical.com/post/nitrous-io-a-dev-environment-for-everyone/" style="height:28px">
+          Read more
+          <span class="icon is-small">
+            <i class="fa fa-angle-double-right"></i>
+          </span>
+        </a>
+        
+      </div>
+    </article>
+    
+    <article>
+      <h2 class="subtitle is-6">November 25, 2013</h2>
+      <h1 class="title"><a href="http://callmeradical.com/post/setting-up-puma-and-nginx/">Setting up Puma and Nginx</a></h1>
+      <div class="content">
+        (This article assumes familiarity with reverse proxy software such as Varnish or Nginx)
+For those of you not familiar with puma you can check out more information here - Puma. and if that is too much to read, it can be summarized here…
+ Puma is a very lightweight and incredibly fast web server that was built for speed and parallelism. For comparisions of other webservers check out the link above.
+        
+        ...<a class="button is-link" href="http://callmeradical.com/post/setting-up-puma-and-nginx/" style="height:28px">
+          Read more
+          <span class="icon is-small">
+            <i class="fa fa-angle-double-right"></i>
+          </span>
+        </a>
+        
+      </div>
+    </article>
+    
+    <article>
+      <h2 class="subtitle is-6">November 25, 2013</h2>
+      <h1 class="title"><a href="http://callmeradical.com/post/understanding-boxen-a-sysadmins-realization/">Understanding boxen, a Sysadmin&#39;s realization...</a></h1>
+      <div class="content">
+        So I had a hard time understanding what exactly boxen was used for at first. I also didn&rsquo;t really see much value other than setting a &ldquo;base&rdquo; system.
+ However after working with puppet and reading some of the other posts by Gary Larizza I think that boxen can really be summed up into an intelligently designed way to run puppet in an organization that requires more freedom for its users than typical.
+        
+        ...<a class="button is-link" href="http://callmeradical.com/post/understanding-boxen-a-sysadmins-realization/" style="height:28px">
+          Read more
+          <span class="icon is-small">
+            <i class="fa fa-angle-double-right"></i>
+          </span>
+        </a>
+        
+      </div>
+    </article>
+    
+    <article>
+      <h2 class="subtitle is-6">November 25, 2013</h2>
+      <h1 class="title"><a href="http://callmeradical.com/post/adding-the-version-number-of-your-rails-app-using-git/">Adding the version number of your rails app using git</a></h1>
+      <div class="content">
+        An easy methodology of &ldquo;stamping&rdquo; your commits would be to create an environment varible to store the return value of: git describe &ndash;always
+This should by default always return the most recent tagged release or branch name.
+You can store this variable in the environment.rb file of your project by appending this line of code: APP_VERSION = git describe --always unless defined? APP_VERSION
+This was originally retrieved from this fine human being Daniel Pietzsch
+        
+      </div>
+    </article>
+    
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <nav class="level is-mobile">
+      <div class="level-left">
+        <div class="level-item">
+          
+          <a class="button" href="/content/post/2/">
+            <span class="icon is-small is-marginless">
+              <i class="fa fa-angle-left"></i>
+            </span>
+            Newer
+          </a>
+          
+        </div>
+      </div>
+      <div class="level-right is-marginless">
+        <div class="level-item">
+          
+          <a class="button is-disabled">
+            Older
+            <span class="icon is-small is-marginless">
+              <i class="fa fa-angle-right"></i>
+            </span>
+          </a>
+          
+        </div>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/callmeradical">Lars Cromley</a> 2016</p>
+  </div>
+</section>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/go.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/dockerfile.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-68276982-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+

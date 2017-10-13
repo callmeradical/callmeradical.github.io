@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Export and Import SSL Certs from IIS to nginx | Lars Cromley</title>
+<link rel="stylesheet" href="http://callmeradical.com/css/style.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/github.min.css">
+
+
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="http://callmeradical.com"><h1 class="title is-4">Lars Cromley</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+          <a class="level-item" href="/resume/resume">
+            <span class="icon">
+              <i class="fa fa-id-badge"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://github.com/callmeradical">
+            <span class="icon">
+              <i class="fa fa-github"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://twitter.com/callmeradical">
+            <span class="icon">
+              <i class="fa fa-twitter"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="/index.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+          </a>
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="subtitle is-6">November 25, 2013</h2>
+    <h1 class="title">Export and Import SSL Certs from IIS to nginx</h1>
+    <center>
+    <center> 
+  <div class=feature>
+  <img class="feature" src =""> 
+  </div>
+</center>
+
+    </center>
+    <div class="content">
+      <p>While transitioning a website built in .NET there came a time to move the server to something a little more robust&hellip; like Linux! The following steps are more for my benefit but they may help in a pinch.
+<!-- More -->
+<hr></hr></p>
+
+<p>To export the SSL certificate from your Windows Server:</p>
+
+<ol>
+<li>Run &ldquo;mmc.exe&rdquo; from Start-&gt;Run menu;</li>
+<li>Open &ldquo;File&rdquo;-&gt;&ldquo;Add/Remove Snap-in&rdquo;;</li>
+<li>Click on &ldquo;Add&hellip;&rdquo; button, select &ldquo;Certificates&rdquo; option, click &ldquo;Add&rdquo;, select &ldquo;Computer account&rdquo;; Next; Finish;</li>
+<li>Close &ldquo;Add standalone snap-in&rdquo;; close &ldquo;Add/Remove snap-in&rdquo; by &ldquo;Ok&rdquo; button;</li>
+<li>Open &ldquo;Personal&rdquo; folder and find corresponding certificate;</li>
+<li>Right click on &ldquo;Certificates&rdquo;, select &ldquo;All tasks&rdquo;-&gt;&ldquo;Export&rdquo;;</li>
+<li>On &ldquo;Certificate export wizard&rdquo; click Next, select &ldquo;Yes, export the private key&rdquo;, select &ldquo;Personal Information Exchange&rdquo; format, click Next, enter password, select file, click Finish.</li>
+</ol>
+
+<p>Copy the Certificate files to your server to the directory on your server where you will keep your certificate and key files. Make them readable by root only to increase security.</p>
+
+<p>Concatenate the primary certificate and intermediate certificate.</p>
+
+<p>You need to concatenate the primary certificate file (your_domain_name.crt) and the intermediate certificate file (DigiCertCA.crt) into a single pem file by running the following command:</p>
+
+<pre><code class="language-bash">cat DigiCertCA.crt &gt;&gt; your_domain_name.crt
+</code></pre>
+
+<p>Edit the Nginx virtual hosts file:</p>
+
+<p>Now open your Nginx virtual host file for the website you are securing. If you need your site to be accessible through both secure (https) and non-secure (http) connections, you will need a server module for each type of connection. Make a copy of the existing non-secure server module and paste it below the original. Then add the lines in bold below:</p>
+
+<pre><code>server {
+
+listen 443;
+
+ssl on;
+ssl_certificate /etc/ssl/your_domain_name.crt; (or .pem)
+ssl_certificate_key /etc/ssl/your_domain_name.key;
+
+server_name your.domain.com;
+access_log /var/log/nginx/nginx.vhost.access.log;
+error_log /var/log/nginx/nginx.vhost.error.log;
+location / {
+root /home/www/public_html/your.domain.com/public/;
+index index.html;
+	}
+}
+</code></pre>
+
+<p>Adjust the file names to match your certificate files:</p>
+
+<p>ssl_certificate should be your primary certificate combined with the intermediate certificate that you made in the previous step (e.g. your_domain_name.crt).
+ssl_certificate_key should be the key file generated when you created the CSR.
+Restart Nginx.</p>
+
+<pre><code class="language-bash">sudo /etc/init.d/nginx restart
+</code></pre>
+
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+    <script type="text/javascript">
+      var disqus_shortname = 'callmeradical';
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/callmeradical">Lars Cromley</a> 2016</p>
+  </div>
+</section>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/go.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/dockerfile.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-68276982-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+

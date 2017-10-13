@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Lars Cromley</title>
+    <link>http://callmeradical.com/post/</link>
+    <description>Recent content in Posts on Lars Cromley</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/callmeradical&#34;&gt;Lars Cromley&lt;/a&gt; 2016</copyright>
+    <lastBuildDate>Fri, 13 Oct 2017 11:32:07 -0400</lastBuildDate>
+    
+	<atom:link href="http://callmeradical.com/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Experimenting With Go Plugins Using Docker</title>
+      <link>http://callmeradical.com/post/experimenting-with-go-plugins-with-docker/</link>
+      <pubDate>Fri, 13 Oct 2017 11:32:07 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/experimenting-with-go-plugins-with-docker/</guid>
+      <description>I was learning about the plugin package from a number of sources and decided to follow along with this article - Writing Modular Go Programs with Plugins
+One of the things that immediately hit me was that there is a caveat to using Go plugin.
+ As of version 1.8, the Go plugin only works on Linux.
+ Well I am not one to be deterred by something like &amp;ldquo;only works on Linux.</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes: Resource Requests, Limits, and Quality of Service</title>
+      <link>http://callmeradical.com/post/k8s-resource-limits-requests-qos/</link>
+      <pubDate>Sun, 23 Jul 2017 13:51:34 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/k8s-resource-limits-requests-qos/</guid>
+      <description>Caution, opinion ahead. Let me first state that I believe Kubernetes to be one of the most well designed projects in the open source community today. The depth of documentation and the understanding that goes into features and architecture is rare. We adopted Kubernetes as a platform a little over a year ago. Things have been running very smoothly and have had zero major incidents and a few maintenance issues (very minor) for the duration.</description>
+    </item>
+    
+    <item>
+      <title>AWS API Gateway with Kubernetes Ingress Map</title>
+      <link>http://callmeradical.com/post/aws-api-gateway-kubernetes/</link>
+      <pubDate>Tue, 15 Nov 2016 21:10:46 -0500</pubDate>
+      
+      <guid>http://callmeradical.com/post/aws-api-gateway-kubernetes/</guid>
+      <description>Working on large scale unified APIs seems to be a popular trend. Recently I was working with Microsoft&amp;rsquo;s Graph API, which is their unified API. It is not unreasonable to think that many different teams contribute to the different resources available; mail, calendars, contacts, directories. However many resources, the idea is to have all of them referenced from the same endpoint.
+Ideally each team could use whatever language, whatever technology best worked for them.</description>
+    </item>
+    
+    <item>
+      <title>Raft for Dummies and those like me.</title>
+      <link>http://callmeradical.com/post/raft-for-dummies/</link>
+      <pubDate>Sun, 11 Sep 2016 19:28:49 -0500</pubDate>
+      
+      <guid>http://callmeradical.com/post/raft-for-dummies/</guid>
+      <description>This is going to be my very feeble attempt to explain the Raft consensus algorithm. The very least I will accomplish is sharing the material I have read about Raft and how I have come to understand it. Raft is used in popular pieces of software such as RethinkDB, etcd, and a number of Hashicorp products.(1)
+What is Raft? Raft was developed in the hopes of creating an easy to understand consensus algorithm.</description>
+    </item>
+    
+    <item>
+      <title>Using Consul with Registrator</title>
+      <link>http://callmeradical.com/post/using-consul-with-registrator/</link>
+      <pubDate>Sat, 10 Sep 2016 15:03:44 -0700</pubDate>
+      
+      <guid>http://callmeradical.com/post/using-consul-with-registrator/</guid>
+      <description>Service discovery is not new, but I still see plenty of shops storing their configuration in the form of configuration files or hardcoded objects. Connecting to an instance of MySQL or Redis and hard coding connection strings beforehand doesn&amp;rsquo;t allow one to take full advantage of dynamic resources and also doesn&amp;rsquo;t allow for treating them as backing resources.
+We are going to take a quick walk through setting up a consul cluster using docker-machine and have registrator dynamically create entries in consul&amp;rsquo;s service catalog.</description>
+    </item>
+    
+    <item>
+      <title>Benchmarking Amazon&#39;s Aurora</title>
+      <link>http://callmeradical.com/post/aurora-benchmark/</link>
+      <pubDate>Wed, 07 Sep 2016 11:57:11 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/aurora-benchmark/</guid>
+      <description>I saw this study by the folks over at Google and their 2nd Generation Cloud SQL.
+The results they posted didn&amp;rsquo;t exactly mirror what I saw when running the benchmarks for myself. You can get the raw data here @ Github.
+Everything was stood up using Terraform, the benchmark tests were conducted using Sysbench, and all data was plotted using R.
+Since we didn&amp;rsquo;t have access to Google&amp;rsquo;s original data, we provided some overlays in the post as an easy visual comparison.</description>
+    </item>
+    
+    <item>
+      <title>Free advice from a Terraform user</title>
+      <link>http://callmeradical.com/post/free-advice-from-a-terraform-user/</link>
+      <pubDate>Thu, 31 Mar 2016 20:40:23 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/free-advice-from-a-terraform-user/</guid>
+      <description>Firstly a huge thank you goes out to @mipsytipsy for this awesome post mortem on what appears to be or what could have been one of the worst outages of her career.
+ Some context: our terraform config had been pretty stable for a few weeks. After I got it set up, I hardly ever needed to touch it. This was an explicit goal of mine. (I have strong feelings about delegation of authority and not using your orchestration layer for configuration, but that’s for another day.</description>
+    </item>
+    
+    <item>
+      <title>Container best practices from RedHat</title>
+      <link>http://callmeradical.com/post/container-best-practices-from-redhat/</link>
+      <pubDate>Thu, 31 Mar 2016 16:03:39 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/container-best-practices-from-redhat/</guid>
+      <description>I came across this post in a slack channel earlier today and thought it was some pretty sound advice for those starting out in the container eco system.
+ First: Containers are immutable – The OS, library versions, configurations, folders, and application are all wrapped inside the container. You guarantee that the same image that was tested in QA will reach the production environment with the same behaviour.
+Second: Containers are lightweight – The memory footprint of a container is small.</description>
+    </item>
+    
+    <item>
+      <title>Multitasking? You want to talk about multitasking?</title>
+      <link>http://callmeradical.com/post/multitasking-you-want-to-talk-about-multitasking/</link>
+      <pubDate>Tue, 08 Mar 2016 06:32:21 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/multitasking-you-want-to-talk-about-multitasking/</guid>
+      <description>Reading is definitely a passion for me. I love reading every chance I get. So few books have stuck with me or have become even a flavor of the week that I feel like I have to recommend Greg McKeown&amp;rsquo;s Essentialism again.
+I came by another post, not long after reading Greg&amp;rsquo;s book, talking about priorities and the nonsense it creates.
+ The Myth of Multitasking Yes, we are capable of doing two things at the same time.</description>
+    </item>
+    
+    <item>
+      <title>SQL Server on Linux?</title>
+      <link>http://callmeradical.com/post/sql-server-on-linux/</link>
+      <pubDate>Tue, 08 Mar 2016 05:20:05 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/sql-server-on-linux/</guid>
+      <description>Yeah you saw that right. This new Microsoft confuses me almost on a daily basis. Part of me thinks that this is awesome, and then another part yells at me for thinking it is awesome.
+I think it is great that Microsoft is looking to make good with the open-source community. They are the second largest contributor to Docker outside of Docker, and now this push to put SQL Server on Linux is yet another attempt to break bread.</description>
+    </item>
+    
+    <item>
+      <title>You cannot overestimate the unimportance of practically everything.</title>
+      <link>http://callmeradical.com/post/you-cannot-overestimate-the-unimportance-of-practically-everything/</link>
+      <pubDate>Thu, 28 Jan 2016 03:52:59 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/you-cannot-overestimate-the-unimportance-of-practically-everything/</guid>
+      <description>I don&amp;rsquo;t typically subscribe to books about decision-making or &amp;ldquo;life hacking&amp;rdquo; or even time management.
+I just finished my second read of Essentialism by Greg McKeown. I read through it the first time, and I was skeptical. After my second read, I can say I am a believer.
+I can&amp;rsquo;t recommend this book enough. I have had trouble divorcing myself from work for a while. I would always be the guy saying;</description>
+    </item>
+    
+    <item>
+      <title>Lambda, Docker/ECS, and S3... sitting in a tree.</title>
+      <link>http://callmeradical.com/post/aws-techconnect-seattle/</link>
+      <pubDate>Wed, 28 Oct 2015 00:59:36 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/aws-techconnect-seattle/</guid>
+      <description>To go along with a talk I am doing this week, I created a demo project to reinforce the idea behind ephemeral architecture and infrastructure as code.
+We create two S3 buckets for the purpose of intake and another to serve out a static site we will be generating using ECS.
+The first bucket is a place to drop photos which then triggers a lambda function, we will call this photo_bucket.</description>
+    </item>
+    
+    <item>
+      <title>Tetris... err... Getting Started with Kubernetes</title>
+      <link>http://callmeradical.com/post/getting-started-with-k8s/</link>
+      <pubDate>Wed, 30 Sep 2015 02:39:08 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/getting-started-with-k8s/</guid>
+      <description>After watching @kelseyhightower&amp;rsquo;s speech at Strangeloop 2015. I was really impressed at the ease of instruction and demonstration he showed. I had not played with Kubernetes aside from using the kube-up.sh script in the github repo with the EC2 provider.
+He starts off the talk by saying: &amp;gt; How would you design your infrastructure if you could never login?
+I have worked with clients and have said these exact words. It immediately grabbed my attention.</description>
+    </item>
+    
+    <item>
+      <title>Eight Docker Development Patterns</title>
+      <link>http://callmeradical.com/post/eight-docker-dev-patterns/</link>
+      <pubDate>Tue, 29 Sep 2015 02:36:55 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/eight-docker-dev-patterns/</guid>
+      <description>This was a post I had stashed away a while ago by Vidar Hokstad.
+He goes into some of the uses he has been seeing/using docker for. I have used some of these and I am sure there are even more development patterns out there now. The one I am most interested in is the &amp;lsquo;installer&amp;rsquo; container as he calls it.
+There are so many installers that come in the form of&amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>Working with octopress... in a container.</title>
+      <link>http://callmeradical.com/post/working-with-octopress-dot-dot-dot-in-a-container/</link>
+      <pubDate>Fri, 25 Sep 2015 05:33:56 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/working-with-octopress-dot-dot-dot-in-a-container/</guid>
+      <description>So I have been on a bit of a kick with Docker. I have been in Boston talking about it, giving webinars on it, and using it just about everywhere in every which way I can.
+One of the first things I realized is that I hate installing dependencies on all of my things. Installing ruby, git, gcc, and not to mention all the gems that I need to run.</description>
+    </item>
+    
+    <item>
+      <title>It&#39;s that time again...</title>
+      <link>http://callmeradical.com/post/its-that-time-again-dot-dot-dot/</link>
+      <pubDate>Thu, 24 Sep 2015 16:07:36 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/its-that-time-again-dot-dot-dot/</guid>
+      <description>Well it is that time again. AWS re:Invent is right around the corner and I will once again be making the trek to beautiful Las Vegas. I am looking forward to seeing some familiar faces and even more excited to see what new service offerings will be unveiled.
+Plenty of people from 2ndWatch will be there @ booth # 626 so be sure to swing on by and chat for a bit.</description>
+    </item>
+    
+    <item>
+      <title>Shared environments and toolsets</title>
+      <link>http://callmeradical.com/post/pair-programming-with-screen-and-vim/</link>
+      <pubDate>Sat, 07 Mar 2015 02:05:52 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/pair-programming-with-screen-and-vim/</guid>
+      <description>Hey Andre, Look at this!
+Over the past 5 months I have been working on a team of about five people on a shared workstation.
+Originally I had my reservations about other people working on the same machine as everyone else, but was quickly swaying to use it myself. Rather than set everyone up on their windows laptops (which I still think is a huge barrier for entry) our workstation was originally set up to help other people start coding, developing, and learning ruby.</description>
+    </item>
+    
+    <item>
+      <title>Data Share</title>
+      <link>http://callmeradical.com/post/weekly-data-share/</link>
+      <pubDate>Mon, 25 Nov 2013 16:44:12 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/weekly-data-share/</guid>
+      <description>Starting this week I am going to start sharing an assortment of links weekly that I have found interesting through the course of my week. These may not be necessarily be new. Also, I won&amp;rsquo;t be shouting out to anyone in particular but if you or your material end up on this list, thanks in advance!
+ Twitter CLI: t a command line twitter app which is pretty awesome.
+ National Vulnerability Database this has been around for a while and might be old hat for most of you out there, however people newer to system administration will find a wealth of information here, relating to the security of their infrastructure.</description>
+    </item>
+    
+    <item>
+      <title>AWS re:Invent recap</title>
+      <link>http://callmeradical.com/post/aws-reinvent-recap/</link>
+      <pubDate>Mon, 25 Nov 2013 16:07:14 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/aws-reinvent-recap/</guid>
+      <description>So we are about half-way through day 1 of Amazon&amp;rsquo;s re:Invent and let me be the first to say, so far everything has been great.
+Registration was amazingly fast, all of the staff have been incredibly polite, and immediately after getting through registration I got my first piece of swag!
+So it is not all sunshine and rainbows, there is some work to be done.
+Today I started off with a hands-on lab getting my hands into setting up security profiles with the IAM credential system and then configurring instances of S3, EC2, and EBS.</description>
+    </item>
+    
+    <item>
+      <title>Awesome! learnxinyminutes.com</title>
+      <link>http://callmeradical.com/post/awesome-learnxinyminutes-com/</link>
+      <pubDate>Mon, 25 Nov 2013 16:07:14 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/awesome-learnxinyminutes-com/</guid>
+      <description>I was poking around the web and found an interesting website that show cases some of the key features of many different programming languages.
+Presenting&amp;hellip; drumroll&amp;hellip; learn x in y minutes.</description>
+    </item>
+    
+    <item>
+      <title>Command of the Day, lsof!</title>
+      <link>http://callmeradical.com/post/command-of-the-day-lsof/</link>
+      <pubDate>Mon, 25 Nov 2013 16:07:14 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/command-of-the-day-lsof/</guid>
+      <description>How often have you ever moved a file to trash, attempted to empty the trash only to be greeted with an awesome message that states &amp;ldquo;Cannot delete this file its in use blah blah&amp;rdquo; nonsense?
+While lsof can definitely help in these scenarios. I prefer to use it for looking at ports, examples after the break.
+ 
+lsof can&amp;hellip;
+List all open files
+lsof  Find out who is using a file&amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>Command of the Day, purge!</title>
+      <link>http://callmeradical.com/post/command-of-the-day-purge/</link>
+      <pubDate>Mon, 25 Nov 2013 16:07:14 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/command-of-the-day-purge/</guid>
+      <description>This is a common favorite of mine, especially when running VM’s locally. I have noticed with VMware fusion and Parallels there seems to be a delay in freeing up memory. If you you like things that make you happy, you will likely enjoy this:
+$ purge   Open up activity monitor Open a terminal window Issue the purge command Watch your memory usage plummet after issuing the purge command. Profit&amp;hellip; Is this still relevant?</description>
+    </item>
+    
+    <item>
+      <title>Connecting to OS X VPN on Windows 7 and Later</title>
+      <link>http://callmeradical.com/post/connecting-to-os-x-vpn-on-windows-7-and-later/</link>
+      <pubDate>Mon, 25 Nov 2013 16:07:14 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/connecting-to-os-x-vpn-on-windows-7-and-later/</guid>
+      <description>When setting up windows machine&amp;rsquo;s for VPN access to OS X server&amp;rsquo;s builtin VPN service there is some tweaking that I have always found necessary.
+ Add this to your registry:  [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\PolicyAgent] &amp;quot;AssumeUDPEncapsulationContextOnSendRule&amp;quot;=dword:00000002
+ Open secpol.msc (click start &amp;gt; search for secpol.msc)   Local Policies &amp;gt; Security Options Network Security : LAN Manager Auth Level… Set to: Send LM &amp;amp; NTLMv2 - UseNTLMv2…  And
+ Network Security : Minimum session security… clients uncheck &amp;ldquo;Require 128-bit encryption&amp;rdquo;   Restart PC</description>
+    </item>
+    
+    <item>
+      <title>Consolidating Snapshots in vSphere when using VDP or AVDP</title>
+      <link>http://callmeradical.com/post/consolidating-snapshots-in-vsphere-when-using-vdp-or-avdp/</link>
+      <pubDate>Mon, 25 Nov 2013 16:07:14 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/consolidating-snapshots-in-vsphere-when-using-vdp-or-avdp/</guid>
+      <description>Let me start by saying this, I can&amp;rsquo;t stand vSphere Data Protection, however I feel that since it is offered for free, and there is little to no management or maintenance for the virtual appliance, I see no reason in keeping it from my vSphere environment. That being said I still prefer to use Veeam for reliable backups of our virtual infrastructure at least on a weekly basis.
+So anyway lets get started.</description>
+    </item>
+    
+    <item>
+      <title>Ejecting CD-rom on a Mac Pro ESXi Host</title>
+      <link>http://callmeradical.com/post/ejecting-cd-rom-on-a-mac-pro-esxi-host/</link>
+      <pubDate>Mon, 25 Nov 2013 16:07:14 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/ejecting-cd-rom-on-a-mac-pro-esxi-host/</guid>
+      <description>So if you are ever in a pinch and need to use a piece of optical media, you can operate the CD-rom door via Command Line when you SSH into your ESXi Mac Pro.
+For instance: (Enable ssh in the Security Profile of the Configuration tab on the vSphere client. Remember to turn this off after you are done.)
+$ ssh root@esxi.host.machine # cd /dev/cdroom # ls # eject vmp.*.*  That will then eject your tray, leaving you to wondrously explore legacy optical media that no one wants.</description>
+    </item>
+    
+    <item>
+      <title>Export and Import SSL Certs from IIS to nginx</title>
+      <link>http://callmeradical.com/post/export-and-import-ssl-certs-from-iis-to-nginx/</link>
+      <pubDate>Mon, 25 Nov 2013 16:07:14 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/export-and-import-ssl-certs-from-iis-to-nginx/</guid>
+      <description>While transitioning a website built in .NET there came a time to move the server to something a little more robust&amp;hellip; like Linux! The following steps are more for my benefit but they may help in a pinch. 
+To export the SSL certificate from your Windows Server:
+ Run &amp;ldquo;mmc.exe&amp;rdquo; from Start-&amp;gt;Run menu; Open &amp;ldquo;File&amp;rdquo;-&amp;gt;&amp;ldquo;Add/Remove Snap-in&amp;rdquo;; Click on &amp;ldquo;Add&amp;hellip;&amp;rdquo; button, select &amp;ldquo;Certificates&amp;rdquo; option, click &amp;ldquo;Add&amp;rdquo;, select &amp;ldquo;Computer account&amp;rdquo;; Next; Finish; Close &amp;ldquo;Add standalone snap-in&amp;rdquo;; close &amp;ldquo;Add/Remove snap-in&amp;rdquo; by &amp;ldquo;Ok&amp;rdquo; button; Open &amp;ldquo;Personal&amp;rdquo; folder and find corresponding certificate; Right click on &amp;ldquo;Certificates&amp;rdquo;, select &amp;ldquo;All tasks&amp;rdquo;-&amp;gt;&amp;ldquo;Export&amp;rdquo;; On &amp;ldquo;Certificate export wizard&amp;rdquo; click Next, select &amp;ldquo;Yes, export the private key&amp;rdquo;, select &amp;ldquo;Personal Information Exchange&amp;rdquo; format, click Next, enter password, select file, click Finish.</description>
+    </item>
+    
+    <item>
+      <title>Failed to connect to VMware Lookup Service</title>
+      <link>http://callmeradical.com/post/failed-to-connect-to-vmware-lookup-service/</link>
+      <pubDate>Mon, 25 Nov 2013 16:07:14 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/failed-to-connect-to-vmware-lookup-service/</guid>
+      <description>I had a problem logging into the vCenter vSphere web client earlier this week and was greeted with a message stating &amp;ldquo;Failed to connect to VMware Lookup Service.&amp;rdquo;
+More after the jump for the solution.  At first I tried this method, which is outlined here, Yellow-bricks
+ Precise error: Failed to connect to VMware Lookup Service. SSL certificate verification failed. I had been playing around in my lab and I am guessing this error was caused by the fact that I changed the hostname of my vCenter Server Appliance after configuring it.</description>
+    </item>
+    
+    <item>
+      <title>Fixing mystery Kerberos log message in OS X</title>
+      <link>http://callmeradical.com/post/fixing-mystery-kerberos-log-message-in-os-x/</link>
+      <pubDate>Mon, 25 Nov 2013 16:07:14 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/fixing-mystery-kerberos-log-message-in-os-x/</guid>
+      <description>I didn&amp;rsquo;t notice this message popping up until I upgraded a couple machines to Lion, however once they were upgraded I began to see this message repeatedly in the log, roughly every 10 seconds.
+ com.apple.launchd:(com.apple.Kerberos.kdc) Throttling respawn: Will start in 10 seconds
+ launchd spawns a process that continually attempts to authenticate with resources on the network.
+I haven&amp;rsquo;t done enough digging to know what exactly caused this change. Regenerating the localKDC stopped this message all together so far.</description>
+    </item>
+    
+    <item>
+      <title>Fixing mystery Kerberos log message in OS X</title>
+      <link>http://callmeradical.com/post/fixing-mystery-kerberos-log-messages-in-os-x/</link>
+      <pubDate>Mon, 25 Nov 2013 16:07:14 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/fixing-mystery-kerberos-log-messages-in-os-x/</guid>
+      <description>I didn&amp;rsquo;t notice this message popping up until I upgraded a couple machines to Lion, however once they were upgraded I began to see this message repeatedly in the log, roughly every 10 seconds.
+ com.apple.launchd:(com.apple.Kerberos.kdc) Throttling respawn: Will start in 10 seconds
+ launchd spawns a process that continually attempts to authenticate with resources on the network.
+I haven&amp;rsquo;t done enough digging to know what exactly caused this change. Regenerating the localKDC stopped this message all together so far.</description>
+    </item>
+    
+    <item>
+      <title>How-to Setup SSH with DSA public key authentication</title>
+      <link>http://callmeradical.com/post/how-to-setup-ssh-with-dsa-public-key-authentication/</link>
+      <pubDate>Mon, 25 Nov 2013 16:07:14 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/how-to-setup-ssh-with-dsa-public-key-authentication/</guid>
+      <description>Generate a DSA Key Pair
+$ ssh-keygen -t dsa   The output should look like like this:
+ Enter file in which to save the key (/home/my_computer/.ssh/id_dsa): Press [Enter] key Enter passphrase (empty for no passphrase): myPassword Enter same passphrase again: myPassword Your identification has been saved in /home/my_computer/.ssh/id_dsa. Your public key has been saved in /home/my_computer/.ssh/id_dsa.pub. The key fingerprint is: 04:be:15:ca:1d:0a:1e:e2:a7:e5:de:98:4f:b1:a6:01 my_computer@my_computer-desktop   Next we have to set the permissions for the directory CD to the .</description>
+    </item>
+    
+    <item>
+      <title>Migrating Apple Wiki from Lion to Mountain Lion</title>
+      <link>http://callmeradical.com/post/migrating-apple-wiki-from-lion-to-mountain-lion/</link>
+      <pubDate>Mon, 25 Nov 2013 16:07:14 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/migrating-apple-wiki-from-lion-to-mountain-lion/</guid>
+      <description>Well here is the first post to this blog with some substance to it!
+Here is a little backstory on the situation. I found myself almost immediately scouring the internet one morning when my boss had told me there was a problem with our server (at this point in time it was our only server) that was currently running OS X 10.7, Lion. I was not a fan of Lion server as it was a major departure from the server OS we all knew and loved.</description>
+    </item>
+    
+    <item>
+      <title>Nitrous.IO - a dev environment for everyone</title>
+      <link>http://callmeradical.com/post/nitrous-io-a-dev-environment-for-everyone/</link>
+      <pubDate>Mon, 25 Nov 2013 16:07:14 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/nitrous-io-a-dev-environment-for-everyone/</guid>
+      <description>I am currently posting this article from Nitrous.IO on my Chromebook.
+Nitrous.IO is an awesome service that is still currently in Beta, that allows you to set up VM&amp;rsquo;s ruby development. Currently it looks like they are primarily supporting Ruby, Python, JavaScript, and GO with frameworks such as Node.js, Rails, and Django. I was super excited about this service a while back and am happy to see that it is working so well.</description>
+    </item>
+    
+    <item>
+      <title>Setting up Puma and Nginx</title>
+      <link>http://callmeradical.com/post/setting-up-puma-and-nginx/</link>
+      <pubDate>Mon, 25 Nov 2013 16:07:14 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/setting-up-puma-and-nginx/</guid>
+      <description>(This article assumes familiarity with reverse proxy software such as Varnish or Nginx)
+For those of you not familiar with puma you can check out more information here - Puma. and if that is too much to read, it can be summarized here…
+ Puma is a very lightweight and incredibly fast web server that was built for speed and parallelism. For comparisions of other webservers check out the link above.</description>
+    </item>
+    
+    <item>
+      <title>Understanding boxen, a Sysadmin&#39;s realization...</title>
+      <link>http://callmeradical.com/post/understanding-boxen-a-sysadmins-realization/</link>
+      <pubDate>Mon, 25 Nov 2013 16:07:14 -0400</pubDate>
+      
+      <guid>http://callmeradical.com/post/understanding-boxen-a-sysadmins-realization/</guid>
+      <description>So I had a hard time understanding what exactly boxen was used for at first. I also didn&amp;rsquo;t really see much value other than setting a &amp;ldquo;base&amp;rdquo; system.
+ However after working with puppet and reading some of the other posts by Gary Larizza I think that boxen can really be summed up into an intelligently designed way to run puppet in an organization that requires more freedom for its users than typical.</description>
+    </item>
+    
+    <item>
+      <title>Adding the version number of your rails app using git</title>
+      <link>http://callmeradical.com/post/adding-the-version-number-of-your-rails-app-using-git/</link>
+      <pubDate>Mon, 25 Nov 2013 16:07:14 +0000</pubDate>
+      
+      <guid>http://callmeradical.com/post/adding-the-version-number-of-your-rails-app-using-git/</guid>
+      <description>An easy methodology of &amp;ldquo;stamping&amp;rdquo; your commits would be to create an environment varible to store the return value of: git describe &amp;ndash;always
+This should by default always return the most recent tagged release or branch name.
+You can store this variable in the environment.rb file of your project by appending this line of code: APP_VERSION = git describe --always unless defined? APP_VERSION
+This was originally retrieved from this fine human being Daniel Pietzsch</description>
+    </item>
+    
+  </channel>
+</rss>

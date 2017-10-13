@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Working with octopress... in a container. | Lars Cromley</title>
+<link rel="stylesheet" href="http://callmeradical.com/css/style.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/github.min.css">
+
+
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="http://callmeradical.com"><h1 class="title is-4">Lars Cromley</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+          <a class="level-item" href="/resume/resume">
+            <span class="icon">
+              <i class="fa fa-id-badge"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://github.com/callmeradical">
+            <span class="icon">
+              <i class="fa fa-github"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://twitter.com/callmeradical">
+            <span class="icon">
+              <i class="fa fa-twitter"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="/index.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+          </a>
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="subtitle is-6">September 25, 2015</h2>
+    <h1 class="title">Working with octopress... in a container.</h1>
+    <center>
+    <center> 
+  <div class=feature>
+  <img class="feature" src =""> 
+  </div>
+</center>
+
+    </center>
+    <div class="content">
+      <p>So I have been on a bit of a kick with Docker. I have been in Boston talking
+about it, giving webinars on it, and using it just about everywhere in every
+which way I can.</p>
+
+<p>One of the first things I realized is that I hate installing dependencies on
+all of my things. Installing ruby, git, gcc, and not to mention all the gems
+that I need to run.</p>
+
+<p>I decided the first thing I wanted to do was make it easier to write my blog
+(which is already ridiculously easy, thanks Github!), I also just wanted to
+see if I could run my blog outside of Github pages if the need arises.
+<!-- more -->
+So here we go.</p>
+
+<p><a href="Octopress">www.octopress.org</a> is/was a blogging framework largely based on
+<a href="Jekyll">www.jekyllrb.com</a>. Since then it has been replaced with a variety
+of Gems.</p>
+
+<p>Dockerfile</p>
+
+<pre><code>FROM debian:8.1
+
+RUN apt-get update
+RUN apt-get install -y \
+  git \
+  ruby \
+  ruby-dev \
+  rubygems \
+  build-essential \
+  nodejs \
+  python
+
+RUN git clone https://github.com/callmeradical/callmeradical.github.io
+WORKDIR callmeradical.github.io
+
+RUN git checkout source
+RUN /bin/bash -l -c &quot;gem install bundler&quot;
+RUN /bin/bash -l -c &quot;bundle install&quot;
+
+EXPOSE 4000
+
+RUN apt-get autoremove -y
+RUN useradd -ms /bin/bash lars
+USER lars
+ENTRYPOINT [&quot;/usr/local/bin/rake&quot;, &quot;preview&quot; ]
+</code></pre>
+
+<p>We can look at this a little closer for those that have never written a Dockerfile before.
+The very first line:</p>
+
+<pre><code>FROM debian:8.1
+</code></pre>
+
+<p>Tells me that I am inheritting from another container. All the configuration that went into
+making that container can be viewed on <a href="Docker Hub">hub.docker.com</a>.</p>
+
+<p>So that will get me to a base install of the OS. The next few lines are pretty self
+explanatory. I am installing packages necessary for the my application to run.</p>
+
+<pre><code>RUN apt-get update
+RUN apt-get install -y \
+  git \
+  ruby \
+  ruby-dev \
+  rubygems \
+  build-essential \
+  nodejs \
+  python
+
+
+</code></pre>
+
+<p>Now we are ready to clone in our project:</p>
+
+<pre><code>RUN git clone https://github.com/callmeradical/callmeradical.github.io
+WORKDIR callmeradical.github.io
+
+RUN git checkout source
+</code></pre>
+
+<p>I am using github pages to deploy my blog and it builds &lsquo;master&rsquo; from &lsquo;source&rsquo; so
+I check out the source branch and install my gems..</p>
+
+<pre><code>RUN /bin/bash -l -c &quot;gem install bundler&quot;
+RUN /bin/bash -l -c &quot;bundle install&quot;
+</code></pre>
+
+<p>EXPOSE Docker that the container will listen on the specified network ports at runtime.
+Docker uses this information to interconnect containers using links, which is helpful if
+we decide we want to run our blog in a more traditional way fronted by Nginx or apache.</p>
+
+<p>Finally I add a user with the same username as my local machine, this is pretty important.</p>
+
+<pre><code>EXPOSE 4000
+
+RUN useradd -ms /bin/bash lars
+USER lars
+ENTRYPOINT [&quot;/usr/local/bin/rake&quot;, &quot;preview&quot; ]
+</code></pre>
+
+<p>Now I add this file to my octopress blog repo and I can now build my container:</p>
+
+<pre><code>docker build --rm=true -t callmeradical/blog:latest .
+</code></pre>
+
+<p>That might take a little bit to install the packages and deps, but once that is complete
+I can now run my blog locally while editing/working on posts.</p>
+
+<pre><code>docker run -i -t \
+-v ~/src/1_docker_callmeradical.github.io:/callmeradical.github.io \ 
+-p 80:4000 \
+-d --name blog callmeradical/blog              
+</code></pre>
+
+<p>This might look unusual at first but there is a reason why I am running it this way.
+I can perform all my edits locally and the preview will continue to regenerate the view
+for me. Combine that my transparent terminal, I can see whats happening as I am posting.</p>
+
+<p>Now if I have to interact in a different way to say do a deployment, or generate a new
+post, I can just use</p>
+
+<pre><code>docker exec -ti &lt;command&gt;
+</code></pre>
+
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+    <script type="text/javascript">
+      var disqus_shortname = 'callmeradical';
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/callmeradical">Lars Cromley</a> 2016</p>
+  </div>
+</section>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/go.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/dockerfile.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-68276982-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+

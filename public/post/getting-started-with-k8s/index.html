@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tetris... err... Getting Started with Kubernetes | Lars Cromley</title>
+<link rel="stylesheet" href="http://callmeradical.com/css/style.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/github.min.css">
+
+
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="http://callmeradical.com"><h1 class="title is-4">Lars Cromley</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+          <a class="level-item" href="/resume/resume">
+            <span class="icon">
+              <i class="fa fa-id-badge"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://github.com/callmeradical">
+            <span class="icon">
+              <i class="fa fa-github"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://twitter.com/callmeradical">
+            <span class="icon">
+              <i class="fa fa-twitter"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="/index.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+          </a>
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="subtitle is-6">September 30, 2015</h2>
+    <h1 class="title">Tetris... err... Getting Started with Kubernetes</h1>
+    <center>
+    <center> 
+  <div class=feature>
+  <img class="feature" src =""> 
+  </div>
+</center>
+
+    </center>
+    <div class="content">
+      <p>After watching <a href="https://twitter.com/kelseyhightower">@kelseyhightower&rsquo;s</a> speech at <a href="https://www.youtube.com/watch?v=pozC9rBvAIs">Strangeloop 2015.</a> I was really impressed at the ease of instruction and demonstration he showed. I had not played with Kubernetes aside from using the kube-up.sh script in the github repo with the EC2 provider.</p>
+
+<p>He starts off the talk by saying:
+&gt; How would you design your infrastructure if you could never login?</p>
+
+<p>I have worked with clients and have said these exact words. It immediately grabbed my attention.</p>
+
+<p>Kelsey goes on to talk briefly about abstraction, containers,a sample application in Golang, and begins demonstrating application deployment to Kubernetes.</p>
+
+<p>After walking through the basic workings of Kubernetes, he provides an awesome illustration of resource utilization using Kubernetes, using Tetris.</p>
+
+<p>Overall this is a great introduction to how Kubernetes works and the problems it aims at solving. Much to Hightower&rsquo;s credit, he also says what Kubernetes won&rsquo;t solve, if not in a kind of tongue and cheek way.</p>
+
+<blockquote>
+<p>If your in the enterprise and all your stuff is written in Java, and you have to deploy to Oracle&hellip; I have to be honest, there is nothing Kubernetes can do for you if you have that particular setup.</p>
+</blockquote>
+
+<p>Now obviously he doesn&rsquo;t mean that, but it does paint a picture of when to use the tool and when not to.</p>
+
+<p>Overall if you haven&rsquo;t had a chance to play with Kubernetes or you don&rsquo;t know what all the hype is about. Check out his talk at Strangeloop. Head on over to <a href="http://kubernetes.io">Kubernetes.io</a> and look through the getting started guide. They have providers for most of the major IaaS; AWS, GCE, Azure, and even Vagrant.</p>
+
+<p>I am going to be working on getting started with AWS. The supported method, while if you have read my previous post I am not a fan of.</p>
+
+<pre><code class="language-bash">$ export KUBERNETES_PROVIDER=aws; curl -sS https://get.k8s.io | bash
+</code></pre>
+
+<p>Though supported, I opted to not go this route and clone the repo here <a href="https://github.com/kubernetes/kubernetes">kubernetes @ github</a></p>
+
+<pre><code>$ git clone https://github.com/kubernetes/kubernetes.git
+$ cd kubernetes
+$ export KUBERNETES_PROVIDER=aws
+$ ./cluster/kube-up.sh
+</code></pre>
+
+<p>This will launch a combination of bash, cloudformation, salt and some other potpourri. After about 5 minutes or so you will be greeted with this output :</p>
+
+<pre><code>Kubernetes cluster is running.  The master is running at:
+
+https://XX.XX.XX.XX
+
+
+The user name and password to use is located in ...
+... calling validate-cluster
+Found 4 nodes.
+      
+Elasticsearch is running at https://XX.XX.XX.XX/api/v1beta3/proxy/namespaces/default/services/elasticsearch-logging
+Kibana is running at https://XX.XX.XX.XX/api/v1beta3/proxy/namespaces/default/services/kibana-logging
+KubeDNS is running at https://XX.XX.XX.XX/api/v1beta3/proxy/namespaces/default/services/kube-dns
+Grafana is running at https://XX.XX.XX.XX/api/v1beta3/proxy/namespaces/default/services/monitoring-grafana
+ is running at https://XX.XX.XX.XX/api/v1beta3/proxy/namespaces/default/services/monitoring-heapster
+influxGrafana is running at https://XX.XX.XX.XX/api/v1beta3/proxy/namespaces/default/services/monitoring-influxdb
+</code></pre>
+
+<p>At this point if you cloned the repo, you can now navigate to the examples folder and begin playing around with creating pods, services, and exposing them.  For a little more direction I highly recommend <a href="http://kubernetes.io/v1.0/examples/guestbook/">this walk through</a>.</p>
+
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+    <script type="text/javascript">
+      var disqus_shortname = 'callmeradical';
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/callmeradical">Lars Cromley</a> 2016</p>
+  </div>
+</section>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/go.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/dockerfile.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-68276982-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+

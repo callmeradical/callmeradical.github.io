@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AWS API Gateway with Kubernetes Ingress Map | Lars Cromley</title>
+<link rel="stylesheet" href="http://callmeradical.com/css/style.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/github.min.css">
+
+
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="http://callmeradical.com"><h1 class="title is-4">Lars Cromley</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+          <a class="level-item" href="/resume/resume">
+            <span class="icon">
+              <i class="fa fa-id-badge"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://github.com/callmeradical">
+            <span class="icon">
+              <i class="fa fa-github"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://twitter.com/callmeradical">
+            <span class="icon">
+              <i class="fa fa-twitter"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="/index.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+          </a>
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="subtitle is-6">November 15, 2016</h2>
+    <h1 class="title">AWS API Gateway with Kubernetes Ingress Map</h1>
+    <center>
+    <center> 
+  <div class=feature>
+  <img class="feature" src =""> 
+  </div>
+</center>
+
+    </center>
+    <div class="content">
+      <p>Working on large scale unified APIs seems to be a popular trend. Recently I was working with
+Microsoft&rsquo;s Graph API, which is their unified API. It is not unreasonable to think that many
+different teams contribute to the different resources available; mail, calendars, contacts,
+directories. However many resources, the idea is to have all of them referenced from the same
+endpoint.</p>
+
+<p>Ideally each team could use whatever language, whatever technology best worked for them. AWS API
+Gateway fullfills that easily.</p>
+
+<p><em>Note: This post makes the assumption that you have a functional Kubernetes cluster</em></p>
+
+<p>First we are going to create a new api in Service Gateway.</p>
+
+<pre><code class="language-bash">$ aws apigateway create-rest-api --name demo
+
+$ export API_ID=&lt;created api id&gt;
+
+$ aws apigateway get-resources --rest-api-id=$API_ID
+
+$ export PARENT_ID=&lt;resource id&gt;
+
+$ aws apigateway create-resource \
+	--rest-api-id=$API_ID \
+	--parent-id=$PARENT_ID \
+	--path-part=&quot;health&quot;
+
+$ export HEALTH_ID=&lt;resource id&gt;
+
+$ aws apigateway put-method \
+	--rest-api-id=$API_ID \
+	--resource-id $HEALTH_ID \
+	--http-method GET \
+	--authorization-type NONE
+</code></pre>
+
+<p>We are going to stop with the API gateway for now, but we will come back to it.</p>
+
+<p>Let&rsquo;s take a look at the app we are going to be running.</p>
+
+<p><a href="https://github.com/callmeradical/healthy">Source Code @ Github</a></p>
+
+<pre><code class="language-go">package main
+
+import (
+	&quot;encoding/json&quot;
+	&quot;log&quot;	
+	&quot;net/http&quot;
+)
+
+type Response struct {
+	Version	string `json:&quot;version&quot;`
+	Message string `json:&quot;message&quot;`
+}
+
+func healthz(w http.ResponseWriter, r *http.Request) {
+	res := Response{
+		Version: &quot;v1.0&quot;,
+		Message: &quot;We are Healthy!&quot;,
+ 	}
+
+	str, err := json.MarshalIndent(&amp;res, &quot;&quot;, &quot;\t&quot;)
+	if err != nil {
+		log.Println(err.Error())
+	}
+
+	w.Write(string(str))
+}
+
+func main() {
+	http.HandleFunc(&quot;/health&quot;, healthz)
+	err := http.ListenAndServe(&quot;:8080&quot;, nil)
+	if err != nil {
+		log.Fatal(&quot;ListenAndServe: &quot;, err)
+	}
+}
+</code></pre>
+
+<p>The app we are going to use is a restful application that responds to a GET on the /health endpoint
+on port 8080 and prints &ldquo;We are healthy!&rdquo;</p>
+
+<pre><code class="language-yaml">apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: healthy
+  name: healthy
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: healthy
+      name: healthy
+    spec:
+      containers:
+        - name: healthy
+          image: &quot;callmeradical/healthy:1.0.0&quot;
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: healthy-app
+  labels:
+    app: healthy
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: healthy
+</code></pre>
+
+<p>So now this little snippet of yaml will create a deployment in kubernetes and
+expose it. Let&rsquo;s go ahead and deploy our app. While we are at it we can verify our
+app is in fact actually running and serving traffic.</p>
+
+<p>From the root of the cloned project:</p>
+
+<pre><code class="language-bash">$ kubectl create -f kubernetes/healthy-deployment-svc.yml
+
+$ kubectl get pods
+
+$ kubectl port-forward &lt;name of pod here&gt; 8080:8080
+
+$ curl localhost:8080/health
+{
+	&quot;version&quot;: &quot;v1.0&quot;,
+	&quot;message&quot;: &quot;We are Healthy!&quot;
+
+}
+</code></pre>
+
+<blockquote>
+<p>A Deployment provides declarative updates for Pods and Replica Sets (the next-generation
+Replication Controller). You only need to describe the desired state in a Deployment object,
+and the Deployment controller will change the actual state to the desired state at a
+controlled rate for you. You can define Deployments to create new resources,
+or replace existing ones by new ones.</p>
+
+<p>&ndash; Kubernetes Documentation @ (<a href="http://kubernetes.io/docs/user-guide/deployments/#what-is-a-deployment">http://kubernetes.io/docs/user-guide/deployments/#what-is-a-deployment</a>)</p>
+</blockquote>
+
+<p>Now we have our app and a skeleton for API Gateway, but we aren&rsquo;t quite done, everything is still very disjointed.
+We still need to create our ingress map, our nginx controller, and finish creating the API gateway.</p>
+
+<p>Let&rsquo;s start working on deploying the ingress controller. An ingress controller is a daemon that is deployed
+as a kubernetes pod. That pod watches the API server&rsquo;s /ingresses endpoint for updates to the ingress resource.
+Its job is to satisfy requests for ingress.</p>
+
+<p>We aren&rsquo;t going to write our own controller, that is out of the scope of this post (maybe down the road :) , but we are going to use
+the example controller used on the Kubernetes site, the nginx controller. The nginx controller does the following:</p>
+
+<ul>
+<li>Poll until apiserver reports a new ingress</li>
+<li>write the nginx config file based on a go text/template</li>
+<li>Reload nginx</li>
+</ul>
+
+<p>Using the example nginx controller requires that we deploy a default-backend. Luckily that is also provided from
+their example. <a href="https://github.com/kubernetes/contrib/tree/master/404-server">default-backend @ github.com/kubernetes</a></p>
+
+<pre><code class="language-yaml">apiVersion: v1
+kind: Service
+metadata:
+  name: default-http-backend
+  labels:
+    k8s-app: default-http-backend
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  selector:
+    k8s-app: default-http-backend
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: default-http-backend
+spec:
+  replicas: 1
+  selector:
+    k8s-app: default-http-backend
+  template:
+    metadata:
+      labels:
+        k8s-app: default-http-backend
+    spec:
+      terminationGracePeriodSeconds: 60
+      containers:
+      - name: default-http-backend
+        # Any image is permissable as long as:
+        # 1. It serves a 404 page at /
+        # 2. It serves 200 on a /healthz endpoint
+        image: gcr.io/google_containers/defaultbackend:1.0
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: nginx-ingress-controller
+  labels:
+    k8s-app: nginx-ingress-lb
+spec:
+  replicas: 1
+  selector:
+    k8s-app: nginx-ingress-lb
+  template:
+    metadata:
+      labels:
+        k8s-app: nginx-ingress-lb
+        name: nginx-ingress-lb
+    spec:
+      terminationGracePeriodSeconds: 60
+      containers:
+      - image: gcr.io/google_containers/nginx-ingress-controller:0.8.3
+        name: nginx-ingress-lb
+        imagePullPolicy: Always
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 10254
+            scheme: HTTP
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 10254
+            scheme: HTTP
+          initialDelaySeconds: 10
+          timeoutSeconds: 1
+        # use downward API
+        env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+        ports:
+        - containerPort: 80
+          hostPort: 80
+        - containerPort: 443
+          hostPort: 443
+        # we expose 18080 to access nginx stats in url /nginx-status
+        # this is optional
+        - containerPort: 18080
+          hostPort: 18080
+        args:
+        - /nginx-ingress-controller
+        - --default-backend-service=$(POD_NAMESPACE)/default-http-backend
+</code></pre>
+
+<p>Now we want to expose our load balancer so we can forward traffic to it from our API Gateway. There are a couple of ways
+to create a Kubernetes service; You can create a spec file like we have been doing above, or you can just issue the command
+directly to the Kubernetes API via kubectl. Let&rsquo;s go with the second option.</p>
+
+<pre><code class="language-bash">$ kubectl get rc
+NAME                       DESIRED   CURRENT   AGE
+default-http-backend       1         1         30m
+nginx-ingress-controller   1         1         30m
+$ kubectl expose rc nginx-ingress-controller --type=LoadBalancer --port=80 --target-port=80
+$ kubectl get svc -o wide
+</code></pre>
+
+<p>The last command should give you something like this:</p>
+
+<pre><code class="language-bash">NAME                       CLUSTER-IP       EXTERNAL-IP                                                               PORT(S)    AGE       SELECTOR
+nginx-ingress-controller   100.71.197.180   &lt; aws classic loadbalancer cname here &gt;			  	                      80/TCP     4m        k8s-app=nginx-ingress-lb
+healthy-app                100.68.182.151   &lt;none&gt;                                                                    80/TCP     6d        app=healthy
+default-http-backend       100.68.139.29    &lt;none&gt;                                                                    80/TCP     5d        k8s-app=default-http-backend
+</code></pre>
+
+<p>Let&rsquo;s hit our load balancer and see what we get so far.</p>
+
+<p><img src="https://dl.dropboxusercontent.com/s/r4yzfxja74z9eex/k8s_default_backend.png?" alt="default-http-backend" /></p>
+
+<p>Great so we now have our nginx controller exposed, looks like it is working&hellip;</p>
+
+<p>Let&rsquo;s set up our ingress to verify that we can route traffic to our application.
+An Ingress is a collection of rules that allowi inbound connections to reach the cluster services.
+I am using Route53 for my DNS for this example. I created an entry in the callmeradical.com hosted zone
+for an alias to my nginx load balancer that we created just before this. When I hit this record with the
+&ldquo;/health&rdquo; endpoint, it will route traffic to our healthy-app and provide a health check.</p>
+
+<pre><code class="language-yaml">apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: demo-app-ingress
+spec:
+  rules:
+    - host: demo.callmeradical.com
+      http:
+        paths:
+          - path: /health
+            backend:
+              serviceName: healthy-app
+              servicePort: 80
+</code></pre>
+
+<p>So now we have our basic app, an nginx controller, default web backend, an ingress map that is currently mapping
+our &ldquo;/health&rdquo; endpoint to our healthy-app service. If you were only using Kubernetes in your organization you could
+probably stop here and start building out a really flexible API leveraging microservices. However, the guy next to you
+is probably saying something along the lines of:</p>
+
+<blockquote>
+<p>&ldquo;Containers are so last year, serverless is where it&rsquo;s at.&rdquo;</p>
+</blockquote>
+
+<p>Hey everyone is entitled to their opinion, and we know it actually is servers all the way down, but let&rsquo;s help this guy out.</p>
+
+<p>We are going to front our services using API Gateway so other teams can use whatever delivery method they choose. We are now going
+to finish our API Gateway service we started building out. This includes creating our method, integration, integration-response,
+method-response, and deploying our API.</p>
+
+<pre><code class="language-bash">$ aws apigateway put-method \
+	--rest-api-id $API_ID \
+	--resource-id $HEALTH_ID \
+	--http-method GET \
+	--authorization-type NONE
+
+$ aws apigateway put-integration \
+	--rest-api-id $API_ID \
+	--resource-id $HEALTH_ID \
+	--http-method GET \
+	--type HTTP \
+	--integration-http-method GET \
+	--uri http://demo.callmeradical.com/health \
+	--passthrough-behavior WHEN_NO_MATCH
+
+$ aws apigateway put-integration-response \
+	--rest-api-id $API_ID  \
+	--resource-id $HEALTH_ID 
+	--http-method GET \
+	--status-code 200 \
+	--response-templates '{&quot;application/json&quot;: &quot;&quot;}'
+
+$ aws apigateway put-method-response \
+	--rest-api-id $API_ID \
+	--resource-id $HEALTH_ID \
+	--http-method GET \
+	--status-code 200 \
+	--response-models '{&quot;application/json&quot;: &quot;Empty&quot;}'
+
+$ aws apigateway create-deployment \
+	--rest-api-id $API_ID \
+	--stage-name v1 \
+	--stage-description 'v1 of our api' \
+	--description 'first deployment'
+</code></pre>
+
+<p>Now that we have our API deployed we can navigate to the invoke URL of the API, or just curl it. The invoke URL
+is in the following form:</p>
+
+<blockquote>
+<p>https://$API_ID.execute-api.$REGION.amazonaws.com/$STAGE</p>
+</blockquote>
+
+<p><em>Note: you can also set up a custom domain for the API if you so choose</em></p>
+
+<p><img src="https://dl.dropboxusercontent.com/s/n6r1q2n7ce7rhgw/k8s_api_gateway_health.png?dl=0" alt="API Gateway Health" /></p>
+
+<p>That&rsquo;s it. We now have a service running in Kubernetes and being fronted by API Gateway. In this example, API gateway also happens to
+be running in another account. This is now ready to be extended to other teams and services. With API gateway you get some neat features
+like throttling, authentication/authorization, lifecycle management, SDK generation, and more. This tutorial/demo may seem like a lot of
+work, but in reality a good deal of this content is fairly &ldquo;out-of-the-box&rdquo; so to speak. Kubernetes and the community as a whole has
+provided a ton of useful tools. For example, I created my route53 entry manually, but you could just as easily use a controller like
+the one provided <a href="https://github.com/wearemolecule/route53-kubernetes">here by the folks of wearemolecule @ Github</a>. Kubernetes is truly an
+amazing project, and the future looks very bright.</p>
+
+<p>Thanks,<br>
+Lars</p>
+
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+    <script type="text/javascript">
+      var disqus_shortname = 'callmeradical';
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/callmeradical">Lars Cromley</a> 2016</p>
+  </div>
+</section>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/go.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/dockerfile.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-68276982-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
