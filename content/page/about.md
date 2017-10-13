@@ -38,7 +38,7 @@ delivering value in a meaningful way.
 standards thus maintaining and enhancing customer trust
 - Evangelize security within 2nd Watch and be an advocate for keeping customer information secure - Demonstrated ability to think strategically about business, product, and technical challenges
 
-### Director Of Information Technology @ RightAction
+### Director of Information Technology @ RightAction
 *December 2013 - August 2014 (8 months)*
 
 - Manage IT infrastructure from top down for three individual companies in a shared space. - Assist engineering with deployment strategies on product with over 55 million DAUs.
