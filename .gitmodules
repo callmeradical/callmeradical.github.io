@@ -1,9 +1,6 @@
 [submodule "themes/hemingway"]
 	path = themes/hemingway
 	url = https://github.com/callmeradical/hemingway.git
-[submodule "themes/hugo-uno"]
-	path = themes/hugo-uno
-	url = https://github.com/callmeradical/hugo-uno.git
-[submodule "public"]
+[submodule "callmeradical.github.io"]
 	path = public
-	url = https://github.com/callmeradical.github.io
+  url = https://github.com/callmeradical/callmeradical.github.io.git
