@@ -1,6 +1,6 @@
 +++
 draft = false
-title =  "Resume"
+title =  "about"
 type = "resume"
 +++
 
@@ -64,7 +64,7 @@ standards thus maintaining and enhancing customer trust
 - Design and implement small to medium sized business infrastructure
 - Remote Support for OS X and Windows based systems
 
-### Hardware Engineer at Apple
+### Hardware Technician at Apple (Genius)
 *July 2010 - November 2012 (2 years 4 months)*
 
 - Responsible for deployment, imaging, and management of Apple-owned systems

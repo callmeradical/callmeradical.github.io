@@ -2,11 +2,11 @@ baseurl = "http://callmeradical.com"
 languageCode = "en"
 title = "Lars Cromley"
 theme = "hemingway"
-copyright = "&copy; <a href=\"https://github.com/callmeradical\">Lars Cromley</a> 2016"
+copyright = "&copy; <a href=\"https://github.com/callmeradical\">Lars Cromley</a> 2017"
 disqusShortname = "callmeradical"
 googleAnalytics = "UA-68276982-1"
 
-Paginate = 15 
+Paginate = 10
 PaginatePath = "content/post/"
 [params]
 
@@ -15,7 +15,7 @@ style = "github"
 languages = ["go", "dockerfile"]
 
 [[params.social]]
-url = "/resume/resume"
+url = "/page/about"
 fa_icon = "fa-id-badge"
 
 [[params.social]]

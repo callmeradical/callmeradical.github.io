@@ -13,8 +13,8 @@ One of the things that immediately hit me was that there is a caveat to using Go
 > As of version 1.8, the Go plugin only works on Linux.
 
 Well I am not one to be deterred by something like "only works on Linux."
-So I went through a created a small project to show how you might be able to continue
-doing Go plugin development on any system. Any system that can run Docker of course.
+So I went through and created a small project to show how you might be able to continue
+doing Go plugin development on any system that can run Docker.
 
 The way we do this is by first creating a base Dockerfile that we can use for various 
 stages of development.
@@ -32,7 +32,7 @@ Next we abstract our operations in the build process via Make. Now I can't take 
 At 2ndWatch, [Craig Monson](https://github.com/craigmonson) came up with the idea to use Make to 
 abstract the sprawl of our tools. We use a number of specialized tools for various things.
 Sometimes it can be daunting to a new developer that is coming to a new project. We shouldn't
-have to spend time just to learn the toolchain. So in an effort to ramp up decrease barrier to 
+have to spend time just to learn the toolchain. So in an effort to decrease the barrier of 
 entry we have used Make in this way. It has been incredibly convenient for us and yielded some
 excellent results. This is just an extension of that idea.
 
@@ -72,4 +72,7 @@ $ make greeter
 ```
 
 By abstracting out the build process and where the commands actually run, we can now 
-safely develop Go plugins on not only linux, but also Windows and Mac OS X.
+safely develop Go plugins on not only linux, but also Windows and Mac OS X. Also note 
+that using make self documents common commands we use from our disparate tools, and 
+provides working examples of those commands.
+
