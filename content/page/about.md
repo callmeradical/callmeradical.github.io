@@ -21,7 +21,7 @@ business value. We focus on quality, well architected solutions, that automate b
 process and eliminate waste.
 
 ### Sr. Product Manager at 2nd Watch
-*March 2016 - Present*
+*March 2016 - April 2017 (11 months)*
 
 Technical product lead for Internal Automation efforts.
 The internal automation team at 2nd Watch creates robust solutions leveraging a wide variety of cloud-native
