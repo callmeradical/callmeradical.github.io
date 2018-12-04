@@ -12,21 +12,34 @@ type = "resume"
 - Terraform
 
 ## Jobs
-### Director of Engineering, Automation at 2nd Watch
+
+### Director, Cloud Advocacy and Innovation at 2nd Watch
 *April 2017 - Present*
+Cloud Advocates are expert engineers and developers who are passionate about
+cloud technologies. They are vocal proponents in the cloud community at large
+and internally within 2nd Watch. Our goal is to increase awareness, mindshare,
+and adoption of cloud native technologies, best practices, and product
+offerings. Advocates accomplish this by creating impactful and relevant content
+(blogs, presentations, demos, etc), engaging with communities (developers,
+engineers, customer etc), as well as cloud enablement engagements. Our goal is
+to kickstart new product offerings, drive feedback into the product teams, and
+gather data to improve our offerings. Advocates work closely with Product
+Management, Cloud Enablement, and Engineering teams. In this way, Advocates help
+drive strategy around Customer, Engineer, and Developer Relations.
 
 I work with our engineers and product teams to; Adopt cloud native technologies,
 drive cultural change, solve client delivery issues, and speed up the delivery of
 business value. We focus on quality, well architected solutions, that automate business
 process and eliminate waste.
 
+
 ### Sr. Product Manager at 2nd Watch
 *March 2016 - Present*
 
-Technical product lead for Internal Automation efforts.
-The internal automation team at 2nd Watch creates robust solutions leveraging a wide variety of cloud-native
-technologies. We write software to automate business process so our colleagues can concentrate on
-delivering value in a meaningful way.
+Technical product lead for Internal Automation efforts. The internal automation
+team at 2nd Watch creates robust solutions leveraging a wide variety of
+cloud-native technologies. We write software to automate business process so our
+colleagues can concentrate on delivering value in a meaningful way.
 
 ### Cloud Architect at 2nd Watch
 *August 2014 - March 2016 (1 year 7 months)*
