@@ -1,4 +1,4 @@
-baseurl = "http://cromleylabs.com"
+baseurl = "https://cromleylabs.com"
 languageCode = "en"
 title = "Lars Cromley"
 theme = "hemingway"

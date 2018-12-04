@@ -15,6 +15,7 @@ type = "resume"
 
 ### Director, Cloud Advocacy and Innovation at 2nd Watch
 *April 2017 - Present*
+
 Cloud Advocates are expert engineers and developers who are passionate about
 cloud technologies. They are vocal proponents in the cloud community at large
 and internally within 2nd Watch. Our goal is to increase awareness, mindshare,
