@@ -13,8 +13,18 @@ type = "resume"
 
 ## Jobs
 
+### Specialist Executive, Cloud Engineering at Deloitte
+*March 2019 - Present*
+
+I work with our engineers and product teams to; Adopt cloud native technologies,
+drive cultural change, solve client delivery issues, and speed up the delivery of
+business value. We focus on quality, well architected solutions, that automate business
+process and eliminate waste.
+
+
 ### Director, Cloud Advocacy and Innovation at 2nd Watch
-*April 2017 - Present*
+*April 2017 - February 2019*
+
 Cloud Advocates are expert engineers and developers who are passionate about
 cloud technologies. They are vocal proponents in the cloud community at large
 and internally within 2nd Watch. Our goal is to increase awareness, mindshare,
@@ -27,14 +37,8 @@ gather data to improve our offerings. Advocates work closely with Product
 Management, Cloud Enablement, and Engineering teams. In this way, Advocates help
 drive strategy around Customer, Engineer, and Developer Relations.
 
-I work with our engineers and product teams to; Adopt cloud native technologies,
-drive cultural change, solve client delivery issues, and speed up the delivery of
-business value. We focus on quality, well architected solutions, that automate business
-process and eliminate waste.
-
-
 ### Sr. Product Manager at 2nd Watch
-*March 2016 - Present*
+*March 2016 - April 2017*
 
 Technical product lead for Internal Automation efforts. The internal automation
 team at 2nd Watch creates robust solutions leveraging a wide variety of
