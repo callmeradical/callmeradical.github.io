@@ -21,7 +21,6 @@ drive cultural change, solve client delivery issues, and speed up the delivery o
 business value. We focus on quality, well architected solutions, that automate business
 process and eliminate waste.
 
-
 ### Director, Cloud Advocacy and Innovation at 2nd Watch
 *April 2017 - February 2019*
 

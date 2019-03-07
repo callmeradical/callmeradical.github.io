@@ -13,26 +13,29 @@ type = "resume"
 
 ## Jobs
 
+### Specialist Executive, Cloud Engineering at Deloitte
+*March 2019 - Present*
+
+I work with our engineers and product teams to; Adopt cloud native technologies,
+drive cultural change, solve client delivery issues, and speed up the delivery of
+business value. We focus on quality, well architected solutions, that automate business
+process and eliminate waste.
+
+
 ### Director, Cloud Advocacy and Innovation at 2nd Watch
-*April 2017 - Present*
+*April 2017 - February 2019*
 
 Cloud Advocates are expert engineers and developers who are passionate about
 cloud technologies. They are vocal proponents in the cloud community at large
 and internally within 2nd Watch. Our goal is to increase awareness, mindshare,
 and adoption of cloud native technologies, best practices, and product
 offerings. Advocates accomplish this by creating impactful and relevant content
-(blogs, presentations, demos, etc.), engaging with communities (developers,
-engineers, customer, etc.), as well as cloud enablement engagements. Our goal is
+(blogs, presentations, demos, etc), engaging with communities (developers,
+engineers, customer etc), as well as cloud enablement engagements. Our goal is
 to kickstart new product offerings, drive feedback into the product teams, and
 gather data to improve our offerings. Advocates work closely with Product
-Management, Cloud Enablement, and Engineering teams. In this way, advocates help
+Management, Cloud Enablement, and Engineering teams. In this way, Advocates help
 drive strategy around Customer, Engineer, and Developer Relations.
-
-I work with our engineers and product teams to: Adopt cloud native technologies,
-drive cultural change, solve client delivery issues, and speed up the delivery of
-business value. We focus on quality, well architected solutions, that automate business
-process and eliminate waste.
-
 
 ### Sr. Product Manager at 2nd Watch
 *March 2016 - April 2017*
@@ -41,6 +44,7 @@ Technical product lead for Internal Automation efforts. The internal automation
 team at 2nd Watch creates robust solutions leveraging a wide variety of
 cloud-native technologies. We write software to automate business process so our
 colleagues can concentrate on delivering value in a meaningful way.
+
 
 ### Cloud Architect at 2nd Watch
 *August 2014 - March 2016 (1 year 7 months)*
