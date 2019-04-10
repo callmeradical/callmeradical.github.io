@@ -3,4 +3,5 @@
 	url = https://github.com/callmeradical/hemingway.git
 [submodule "public"]
 	path = public
-	url = https://github.com/callmeradical/callmeradical.github.io
+	url = git@github.com:callmeradical/callmeradical.github.io.git
+	branch = master
