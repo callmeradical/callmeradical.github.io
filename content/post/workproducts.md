@@ -1,7 +1,8 @@
 +++
 title = "Work Products"
-date = "2019-09-11T21:41:99-05:00"
+date = 2019-09-11T21:41:50-05:00
 draft = false
+
 +++
 
 While at a conference in Pittsburgh last month, I talked with someone that is

@@ -5,3 +5,6 @@
 	path = public
 	url = git@github.com:callmeradical/callmeradical.github.io.git
 	branch = master
+[submodule "themes/tale"]
+	path = themes/tale
+	url = https://github.com/callmeradical/tale-hugo.git
