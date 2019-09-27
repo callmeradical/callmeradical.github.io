@@ -1,21 +1,40 @@
-baseurl = "http://callmeradical.com"
-languageCode = "en-us"
+baseurl = "https://cromleylabs.com"
+languageCode = "en"
 title = "Lars Cromley"
-theme = "hugo-material-docs"
-metadataformat = "yaml"
-canonifyurls = true
-# Enable Google Analytics by entering your tracking id
-googleAnalytics = ""
+theme = "hemingway"
+copyright = "&copy; <a href=\"https://github.com/callmeradical\">Lars Cromley</a> 2017"
+disqusShortname = "callmeradical"
+googleAnalytics = "UA-68276982-1"
 
-[indexes]
-   category = "categories"
-   tag = "tags"
-[Params]
-  AuthorName = "Lars"
-  github = "callmeradical"
-  twitter = "callmeradical"
-  email = "lars@callmeradical.com"
-  description = "Technologist, evangelist, and all around nerd. These thoughts are my own and do not reflect that of my employer."
-  linkedin = "larscromley"
-  cover = "/images/bg.jpg"
-  logo = "/images/logo.jpg"
+Paginate = 10
+PaginatePath = "content/post/"
+[params]
+
+[params.highlight]
+style = "github"
+languages = ["go", "dockerfile"]
+
+[[params.social]]
+url = "/about"
+fa_icon = "fa-id-badge"
+
+[[params.social]]
+url = "/disclaimer"
+fa_icon = "fa-exclamation-circle"
+
+[[params.social]]
+url = "https://github.com/callmeradical"
+fa_icon = "fa-github"
+
+[[params.social]]
+url = "https://twitter.com/callmeradical"
+fa_icon = "fa-twitter"
+
+[[params.social]]
+url = "https://www.linkedin.com/in/callmeradical"
+fa_icon = "fa-linkedin"
+
+[[params.social]]
+url = "/index.xml"
+fa_icon = "fa-rss"
+

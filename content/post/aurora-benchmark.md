@@ -1,7 +1,8 @@
 +++
-date = "2016-09-10T11:57:11-04:00"
+date = "2016-09-07T11:57:11-04:00"
 title = "Benchmarking Amazon's Aurora"
 draft = false
+type = "post"
 
 +++
 
