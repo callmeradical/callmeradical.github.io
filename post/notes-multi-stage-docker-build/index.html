@@ -1,0 +1,53 @@
+<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Notes: Multi Stage Docker Build | Lars Cromley</title><link rel=stylesheet href=https://cromleylabs.com/css/style.css><link rel=stylesheet href=//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css><link rel=stylesheet href=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/github.min.css><section class=section><div class=container><nav class=nav><div class=nav-left><a class=nav-item href=https://cromleylabs.com><h1 class="title is-4">Lars Cromley</h1></a></div><div class=nav-right><nav class="nav-item level is-mobile"><a class=level-item href=/about><span class=icon><i class="fa fa-id-badge"></i></span></a><a class=level-item href=/disclaimer><span class=icon><i class="fa fa-exclamation-circle"></i></span></a><a class=level-item href=https://github.com/callmeradical><span class=icon><i class="fa fa-github"></i></span></a><a class=level-item href=https://twitter.com/callmeradical><span class=icon><i class="fa fa-twitter"></i></span></a><a class=level-item href=https://www.linkedin.com/in/callmeradical><span class=icon><i class="fa fa-linkedin"></i></span></a><a class=level-item href=/index.xml><span class=icon><i class="fa fa-rss"></i></span></a></nav></div></nav></div></section><section class=section><div class=container><h2 class="subtitle is-6">June 15, 2018</h2><h1 class=title>Notes: Multi Stage Docker Build</h1><div class=content><h1 id=docker-multi-stage-builds>Docker Multi-Stage Builds</h1><p>Multi-stage builds are a new feature requiring Docker 17.05 or higher on the <strong>daemon and client</strong>. Multi-stage builds are useful to anyone who has struggled to optimize Dockerfiles while keeping them easy to read and maintain.</p><pre><code>Things to remember:
+- Dockerfile adds a layer to the image for each instruction
+</code></pre><p>Multi-stage builds are helpful to reduce image-size, maintain readability, and reduces the need to have two Dockerfiles (one for dev and one for production, aka the builder pattern).</p><h3 id=builder-pattern>Builder Pattern</h3><p><a href=https://docs.docker.com/develop/develop-images/multistage-build/#before-multi-stage-builds>Example: Builder pattern on Docker.com</a>:</p><p>This is the standard pattern that is followed with many development shops. Create a container to provide build-tools and support to the developer. A new container to deploy the artifact from the build.</p><p><code>Dockerfile.build:</code></p><pre><code class=language-dockerfile>FROM golang:1.7.3
+WORKDIR /go/src/github.com/alexellis/href-counter/
+COPY app.go .
+RUN go get -d -v golang.org/x/net/html \
+  &amp;&amp; CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .
+</code></pre><p><code>Dockerfile:</code></p><pre><code class=language-dockerfile>FROM alpine:latest  
+RUN apk --no-cache add ca-certificates
+WORKDIR /root/
+COPY app .
+CMD [&quot;./app&quot;]  
+</code></pre><p><code>build.sh:</code></p><pre><code class=language-sh>#!/bin/sh
+echo Building alexellis2/href-counter:build
+
+docker build --build-arg https_proxy=$https_proxy --build-arg http_proxy=$http_proxy \  
+    -t alexellis2/href-counter:build . -f Dockerfile.build
+
+docker container create --name extract alexellis2/href-counter:build  
+docker container cp extract:/go/src/github.com/alexellis/href-counter/app ./app  
+docker container rm -f extract
+
+echo Building alexellis2/href-counter:latest
+
+docker build --no-cache -t alexellis2/href-counter:latest .
+rm ./app
+</code></pre><h3 id=multi-stage-build>Multi-stage Build</h3><p><code>Dockerfile:</code></p><pre><code class=language-dockerfile>FROM golang:1.7.3
+WORKDIR /go/src/github.com/alexellis/href-counter/
+RUN go get -d -v golang.org/x/net/html  
+COPY app.go .
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .
+
+FROM alpine:latest  
+RUN apk --no-cache add ca-certificates
+WORKDIR /root/
+COPY --from=0 /go/src/github.com/alexellis/href-counter/app .
+CMD [&quot;./app&quot;]  
+</code></pre><p><code>Using build tags:</code></p><pre><code class=language-dockerfile>FROM golang:1.7.3 as builder
+WORKDIR /go/src/github.com/alexellis/href-counter/
+RUN go get -d -v golang.org/x/net/html  
+COPY app.go    .
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .
+
+FROM alpine:latest  
+RUN apk --no-cache add ca-certificates
+WORKDIR /root/
+COPY --from=builder /go/src/github.com/alexellis/href-counter/app .
+CMD [&quot;./app&quot;] 
+</code></pre><p><code>Building a specific stage/target:</code></p><pre><code class=language-sh>$ docker build --target builder -t alexellis2/href-counter:latest .
+
+</code></pre><p>In a Dockerfile you can also use an external image as a stage. The Docker client pulls the image if necessary and copies the artifact from there.</p><p><code>Example:</code></p><pre><code class=language-sh>COPY --from=nginx:latest /etc/nginx/nginx.conf /nginx.conf
+
+</code></pre><p>jjjjjjjjkjk</p></div></div></section><section class=section><div class=container><aside><div id=disqus_thread></div></aside><script type=text/javascript>var disqus_shortname='callmeradical';(function(){var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript></div></section><section class=section><div class="container has-text-centered"><p>&copy; <a href=https://github.com/callmeradical>Lars Cromley</a> 2017</p></div></section><script type=text/javascript src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js></script><script type=text/javascript src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/go.min.js></script><script type=text/javascript src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/dockerfile.min.js></script><script>hljs.initHighlightingOnLoad();</script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-68276982-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script>

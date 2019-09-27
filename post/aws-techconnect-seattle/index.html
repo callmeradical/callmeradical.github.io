@@ -1,0 +1,61 @@
+<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Lambda, Docker/ECS, and S3... sitting in a tree. | Lars Cromley</title><link rel=stylesheet href=https://cromleylabs.com/css/style.css><link rel=stylesheet href=//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css><link rel=stylesheet href=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/github.min.css><section class=section><div class=container><nav class=nav><div class=nav-left><a class=nav-item href=https://cromleylabs.com><h1 class="title is-4">Lars Cromley</h1></a></div><div class=nav-right><nav class="nav-item level is-mobile"><a class=level-item href=/about><span class=icon><i class="fa fa-id-badge"></i></span></a><a class=level-item href=/disclaimer><span class=icon><i class="fa fa-exclamation-circle"></i></span></a><a class=level-item href=https://github.com/callmeradical><span class=icon><i class="fa fa-github"></i></span></a><a class=level-item href=https://twitter.com/callmeradical><span class=icon><i class="fa fa-twitter"></i></span></a><a class=level-item href=https://www.linkedin.com/in/callmeradical><span class=icon><i class="fa fa-linkedin"></i></span></a><a class=level-item href=/index.xml><span class=icon><i class="fa fa-rss"></i></span></a></nav></div></nav></div></section><section class=section><div class=container><h2 class="subtitle is-6">October 28, 2015</h2><h1 class=title>Lambda, Docker/ECS, and S3... sitting in a tree.</h1><div class=content><p>To go along with a talk I am doing this week, I created a demo project to reinforce the idea behind ephemeral architecture and infrastructure as code.</p><p>We create two S3 buckets for the purpose of intake and another to serve out a static site we will be generating using ECS.</p><p>The first bucket is a place to drop photos which then triggers a lambda function, we will call this photo_bucket.</p><p>This piece of nodejs code will be the lambda we use to launch our ECS task:</p><pre><code class=language-prettyprint>console.log('Loading function');
+var aws = require('aws-sdk');
+exports.handler = function(event, context) {
+  var ecs = new aws.ECS();
+  var params = {
+    taskDefinition: 'arn:account:::ecstask',
+    count: 1,
+    startedBy: 'lambda'
+  };
+ecs.runTask(params, function(err, data) {
+  if (err) console.log(err, err.stack);
+  else    { console.log(data); context.succeed('yew!');}
+  });
+};
+</code></pre><p>To launch the static site I decided on Jekyll, which is the basis for a lot of Github hosted blogs, to generate a static site. I forked the code-base for Jekyll to my own repository and containerized it. Here is the Dockerfile:</p><pre><code class=language-prettyprint>FROM gliderlabs/alpine
+
+RUN apk update
+RUN apk upgrade
+
+RUN apk add \
+    git \
+    imagemagick-dev \
+    ruby-dev \
+    build-base \
+    libffi-dev \
+    nodejs \
+    python
+
+RUN curl -sq &quot;https://s3.amazonaws.com/aws-cli/awscli-bundle.zip&quot; -o &quot;awscli-bundle.zip&quot;
+RUN unzip awscli-bundle.zip
+RUN ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+
+RUN git clone https://github.com/callmeradical/aws_techconnect /src
+
+WORKDIR /src
+
+RUN chmod +x scripts/sync.sh
+
+RUN /usr/bin/gem install bundler
+
+RUN bundle install
+
+RUN bundle exec jekyll build
+
+ENTRYPOINT /usr/bin/ruby scripts/set_env.rb &amp;&amp; source creds &amp;&amp; ./scripts/sync.sh 
+</code></pre><p>There is some other stuff in here that I added to the repository since we are running on AWS. Namely a small script to grab credentials from the EC2 metadata of the docker host so we don&rsquo;t have to worry about storing credentials in the container or rebuilding it.</p><pre><code class=language-prettyprint>require 'json'
+url = '-sq http://169.254.169.254/latest/meta-data/iam/security-credentials/'
+role = `curl #{url}`
+doc = `curl #{url}/#{role}/`
+
+creds = JSON.parse(doc)
+File.open('creds', 'w') do |file|
+  file.write(&quot;export AWS_KEY=\&quot;#{creds['AccessKeyId']}\&quot;\n&quot;)
+  file.write(&quot;export AWS_SECRET=\&quot;#{creds['SecretAccessKey']}\&quot;\n&quot;)
+  file.write(&quot;export BUCKET=\&quot;s3://photo_bucket\&quot;\n&quot;)
+  file.write(&quot;export SITE=\&quot;s3://demo_site\&quot;&quot;)
+end
+</code></pre><p>We use the credentials as environment variables and perform a sync from S3 to the container, build the site, and ship it.</p><pre><code class=language-prettyprint>aws s3 sync $BUCKET photos/
+bundle exec jekyll build
+aws s3 sync _site $SITE
+</code></pre><p>This isn&rsquo;t the best way to do this but it helps illustrate an easy use case or model for performing batch processing.</p><p>If you want to stand this up yourself, the cloudformation templates are located in the <a href=https://github.com/callmeradical/aws_techconnect>GitHub Repo</a> under the scripts folder.</p><p>Note: I didn&rsquo;t externalize the bucket names, so you may have to change the names of the buckets in the template and the set_env.rb file.</p></div></div></section><section class=section><div class=container><aside><div id=disqus_thread></div></aside><script type=text/javascript>var disqus_shortname='callmeradical';(function(){var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript rel=nofollow>comments powered by Disqus.</a></noscript></div></section><section class=section><div class="container has-text-centered"><p>&copy; <a href=https://github.com/callmeradical>Lars Cromley</a> 2017</p></div></section><script type=text/javascript src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js></script><script type=text/javascript src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/go.min.js></script><script type=text/javascript src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/dockerfile.min.js></script><script>hljs.initHighlightingOnLoad();</script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-68276982-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script>
