@@ -4,7 +4,7 @@ title = "Lars Cromley"
 theme = "hemingway"
 copyright = "&copy; <a href=\"https://github.com/callmeradical\">Lars Cromley</a> 2017"
 disqusShortname = "callmeradical"
-googleAnalytics = "UA-68276982-1"
+googleAnalytics = "UA-159931755-2"
 
 Paginate = 10
 PaginatePath = "content/post/"
@@ -29,10 +29,6 @@ fa_icon = "fa-github"
 [[params.social]]
 url = "https://twitter.com/callmeradical"
 fa_icon = "fa-twitter"
-
-[[params.social]]
-url = "https://www.linkedin.com/in/callmeradical"
-fa_icon = "fa-linkedin"
 
 [[params.social]]
 url = "/index.xml"
