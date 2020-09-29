@@ -4,16 +4,7 @@ title =  "about"
 type = "resume"
 +++
 
-# Current Technologies
-- GoLang
-- Docker
-- AWS
-- Kubernetes
-- Terraform
-
-## Jobs
-
-### Specialist Executive, Cloud Engineering at Deloitte
+### Technology Fellow and Distinguished Engineer, Cloud Engineering at Deloitte
 *March 2019 - Present*
 
 I work with our engineers and product teams to; Adopt cloud native technologies,
