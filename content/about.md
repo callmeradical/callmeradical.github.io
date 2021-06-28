@@ -4,7 +4,7 @@ title =  "about"
 type = "resume"
 +++
 
-### Technology Fellow and Distinguished Engineer, Cloud Engineering at Deloitte
+### Technology Fellow, Cloud Engineering at Deloitte
 *March 2019 - Present*
 
 I work with our engineers and product teams to; Adopt cloud native technologies,
