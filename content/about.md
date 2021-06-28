@@ -59,16 +59,12 @@ colleagues can concentrate on delivering value in a meaningful way.
 - Implement and administer policies and procedures for inventory tracking and management.
 
 ### Operations Engineer at Tamman Technologies Inc.
-*March 2013 - December 2013 (9 months)*
+*November 2012 - December 2013*
 
 - Rails development and Application deployment
 - System automation and configuration via Boxen and Puppet
 - Server Administration in VmWare and AWS environments
 - Network Administration with Cisco and open source PFsense-based hardware
-
-### System Engineer at Tamman Technologies Inc.
-*November 2012 - March 2013 (4 months)*
-
 - Implement Virtual Solutions with VMware ESXI and VMware vSphere solutions - End user support for industry standard applications on OS X
 - Design and implement small to medium sized business infrastructure
 - Remote Support for OS X and Windows-based systems
