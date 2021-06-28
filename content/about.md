@@ -38,7 +38,7 @@ colleagues can concentrate on delivering value in a meaningful way.
 
 
 ### Cloud Architect at 2nd Watch
-*August 2014 - March 2016 (1 year 7 months)*
+*August 2014 - March 2016*
 
 - Owning the technical engagement and ultimate success around specific implementation projects.
 - Developing a deep expertise in AWS technologies.
@@ -47,7 +47,7 @@ colleagues can concentrate on delivering value in a meaningful way.
 - Evangelize security within 2nd Watch and be an advocate for keeping customer information secure - Demonstrated ability to think strategically about business, product, and technical challenges
 
 ### Director Of Information Technology at RightAction
-*December 2013 - August 2014 (8 months)*
+*December 2013 - August 2014*
 
 - Manage IT infrastructure from top down for three individual companies in a shared space. 
 - Assist engineering with deployment strategies on product with over 55 million DAUs.
@@ -70,7 +70,7 @@ colleagues can concentrate on delivering value in a meaningful way.
 - Remote Support for OS X and Windows-based systems
 
 ### Genius at Apple
-*July 2010 - November 2012 (2 years 4 months)*
+*July 2010 - November 2012*
 
 - Responsible for deployment, imaging, and management of Apple-owned systems
 - Research and identification of repair patterns in hardware and reporting to Apple engineers
