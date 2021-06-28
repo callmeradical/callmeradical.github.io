@@ -17,6 +17,8 @@ jobs:
       uses: peaceiris/actions-hugo@v2.2.1
       with:
         hugo-version: '0.55.6'
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
     - name: Build
       run: hugo --gc --minify --cleanDestinationDir
@@ -28,6 +30,5 @@ jobs:
         ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
         PUBLISH_BRANCH: master
         PUBLISH_DIR: ./public
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
       with:
         emptyCommits: false
