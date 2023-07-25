@@ -6,7 +6,7 @@ description = ""
 subtitle = ""
 header_img = ""
 toc = true
-tags = ["Book Review", "Productivity & Time Management", "Miscellaneous"]
+tags = ["Book Review", "Productivity", "Miscellaneous"]
 
 categories = ["Book Review", "Personal Development", "Productivity", "Time Management", "Life Hacks"]
 series = []

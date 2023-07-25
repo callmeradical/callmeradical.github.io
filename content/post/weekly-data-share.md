@@ -6,7 +6,7 @@ description = ""
 subtitle = ""
 header_img = ""
 toc = true
-tags = ["Miscellaneous", "DevOps & Infrastructure Management", "Networking & Security", "Programming & Software Development", "Burlington Ruby Conference"]
+tags = ["Miscellaneous", "DevOps", "System Administration", "Software Development"]
 
 categories = ["Technology", "System Administration", "Networking", "Software Development", "Security", "Ruby Programming", "Conferences"]
 series = []

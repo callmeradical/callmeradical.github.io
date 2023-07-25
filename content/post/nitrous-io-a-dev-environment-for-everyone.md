@@ -7,7 +7,7 @@ subtitle = ""
 header_img = ""
 toc = true
 categories = ["Technology", "Programming", "Web Development", "Cloud Computing", "Software as a Service"]
-tags = ["Miscellaneous", "Programming & Software Development", "Golang", "Rails", "aws"]
+tags = ["Miscellaneous", "Software Development", "Golang", "AWS"]
 series = []
 comment = true
 +++

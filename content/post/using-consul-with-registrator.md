@@ -7,7 +7,7 @@ description = ""
 subtitle = ""
 header_img = ""
 toc = true
-tags = ["Docker", "Miscellaneous", "DevOps & Infrastructure Management", "docker", "Microservices"]
+tags = ["Docker", "Miscellaneous", "DevOps", "docker", "Software Development"]
 
 categories = ["DevOps", "Cloud Computing", "Containerization", "Distributed Systems", "Network Architecture"]
 series = []

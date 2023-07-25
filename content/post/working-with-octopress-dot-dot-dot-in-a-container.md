@@ -6,7 +6,7 @@ description = ""
 subtitle = ""
 header_img = ""
 toc = true
-tags = ["Docker", "Miscellaneous", "Programming & Software Development", "Git", "google", "Blogging", "Operating Systems & Environment Management", "docker", "Networking & Security"]
+tags = ["Docker", "Miscellaneous", "Software Development", "Google", "System Administration", "docker"]
 
 categories = ["Technology", "Software Development", "Docker", "Blogging", "System Administration", "Web Development", "Networking", "DevOps"]
 series = []
