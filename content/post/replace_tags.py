@@ -9,7 +9,8 @@ TAG_MAP = {
         "aurora",
         "AWS Lambda",
         "AWS re:Invent",
-        "AWS Summit"
+        "AWS Summit",
+        "EC2"
     ],
     "docker": [
         "Docker Hub",
@@ -23,17 +24,18 @@ TAG_MAP = {
     ],
     "google": [
         "Google Firebase",
-        "Google Functions"
+        "Google Functions",
         "GCC",
         "GCE"
+    ],
+    "azure": [
+        "Azure CosmosDB",
+        "Azure Functions"
     ],
     "Cloud & Serverless Technologies": [
         "Active Directory",
         "Azure",
-        "Azure CosmosDB",
-        "Azure Functions",
         "Backend as a Service (BaaS)",
-        "EC2",
         "esxi",
         "Functions as a Service (FaaS)",
         "serverless",
@@ -141,7 +143,6 @@ TAG_MAP = {
         "Conferences",
         "Consulting",
         "CPU Management",
-        "covid",
         "Customer Focus",
         "Decision Making",
         "demo",
@@ -236,7 +237,7 @@ def replace_tags_in_file(file_path):
         lines = file.readlines()
         file.seek(0)
         file.truncate()
-        
+
         for line in lines:
             match = TAGS_REGEX.match(line)
             if match:
@@ -245,11 +246,16 @@ def replace_tags_in_file(file_path):
                 
                 for tag in tags:
                     tag = tag.strip().strip("\"")
-                    if tag in TAG_MAP:
-                        new_tags.append("\"{}\"".format(TAG_MAP[tag]))
-                    else:
-                        new_tags.append("\"{}\"".format(tag))
-                
+                    for top_tag, nested_tags in TAG_MAP.items():
+                        if tag in nested_tags:
+                            tag = top_tag
+                            break
+
+                    new_tags.append("\"{}\"".format(tag))
+
+                # Remove duplicates from new_tags list
+                new_tags = list(dict.fromkeys(new_tags))
+
                 line = "tags = [{}]\n".format(", ".join(new_tags))
             
             file.write(line)
