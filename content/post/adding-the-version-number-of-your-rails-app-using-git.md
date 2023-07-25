@@ -2,9 +2,6 @@
 title = "Adding the version number of your rails app using git"
 draft = false
 date = "2013-11-25T16:07:14.000Z"
-description = ""
-subtitle = ""
-header_img = ""
 toc = true
 tags = ["git", "rails", "environment variables"]
 categories = ["software development"]

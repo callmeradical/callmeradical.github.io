@@ -2,11 +2,8 @@
 date = "2016-09-07T11:57:11-04:00"
 title = "Benchmarking Amazon's Aurora"
 draft = false
-description = ""
-subtitle = ""
-header_img = ""
 toc = true
-tags = ["aws", "aurora", "performance testing"]
+tags = ["Amazon DynamoDB", "api gateway", "aurora", "aws", "AWS Lambda", "AWS re:Invent", "AWS Summit"]
 categories = ["Cloud Engineering", "Database"]
 series = []
 comment = true

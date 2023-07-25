@@ -6,7 +6,7 @@ description = ""
 subtitle = ""
 header_img = ""
 toc = true
-tags = ["aws", "docker", "s3", "demo"]
+tags = ["Amazon DynamoDB", "api gateway", "aurora", "aws", "AWS Lambda", "AWS re:Invent", "AWS Summit"]
 categories = ["Cloud Engineering", "Software Development"]
 series = []
 comment = true
@@ -86,7 +86,7 @@ File.open('creds', 'w') do |file|
   file.write("export AWS_KEY=\"#{creds['AccessKeyId']}\"\n")
   file.write("export AWS_SECRET=\"#{creds['SecretAccessKey']}\"\n")
   file.write("export BUCKET=\"s3://photo_bucket\"\n")
-  file.write("export SITE=\"s3://demo_site\"")
+  file.write("export SITE=\"s3://demo_site\")
 end
 ```
 

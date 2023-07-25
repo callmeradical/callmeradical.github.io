@@ -121,7 +121,7 @@ $ docker-machine ssh dev1
                         ##         .
                   ## ## ##        ==
                ## ## ## ## ##    ===
-           /"""""""""""""""""\___/ ===
+           /"""""""""\___/ ===
       ~~~ {~~ ~~~~ ~~~ ~~~~ ~~~ ~ /  ===- ~~~
            \______ o           __/
              \    \         __/
@@ -172,7 +172,7 @@ $ docker-machine ssh dev3
 $ curl localhost:8500/v1/catalog/services
 {"consul":[],"redis":[]}
 $ curl localhost:8500/v1/catalog/service/redis
-[{"Node":"dev2","Address":"192.168.99.101","ServiceID":"dev2:redis:6379","ServiceName":"redis","ServiceTags":[],"ServiceAddress":"","ServicePort":6379,"ServiceEnableTagOverride":false,"CreateIndex":93,"ModifyIndex":93}]
+[{"Node":"dev2","Address":"192.168.99.101","ServiceID":"dev2:redis:6379","ServiceName":"redis","ServiceTags":[],"ServiceAddress":","ServicePort":6379,"ServiceEnableTagOverride":false,"CreateIndex":93,"ModifyIndex":93}]
 ```
 
 
@@ -193,7 +193,7 @@ If we check our consul entries we can see that there is a health now for Nginx
 
 ```bash
 $ curl localhost:8500/v1/health/service/nginx-80
-[{"Node":{"Node":"dev3","Address":"192.168.99.102","TaggedAddresses":{"wan":"192.168.99.102"},"CreateIndex":5,"ModifyIndex":145},"Service":{"ID":"dev3:nginx:80","Service":"nginx-80","Tags":["urlprefix-/nginx"],"Address":"","Port":8081,"EnableTagOverride":false,"CreateIndex":145,"ModifyIndex":145},"Checks":[{"Node":"dev3","CheckID":"serfHealth","Name":"Serf Health Status","Status":"passing","Notes":"","Output":"Agent alive and reachable","ServiceID":"","ServiceName":"","CreateIndex":5,"ModifyIndex":5},{"Node":"dev3","CheckID":"service:dev3:nginx:80","Name":"Service 'nginx-80' check","Status":"critical","Notes":"","Output":"","ServiceID":"dev3:nginx:80","ServiceName":"nginx-80","CreateIndex":145,"ModifyIndex":145}]}]
+[{"Node":{"Node":"dev3","Address":"192.168.99.102","TaggedAddresses":{"wan":"192.168.99.102"},"CreateIndex":5,"ModifyIndex":145},"Service":{"ID":"dev3:nginx:80","Service":"nginx-80","Tags":["urlprefix-/nginx"],"Address":","Port":8081,"EnableTagOverride":false,"CreateIndex":145,"ModifyIndex":145},"Checks":[{"Node":"dev3","CheckID":"serfHealth","Name":"Serf Health Status","Status":"passing","Notes":","Output":"Agent alive and reachable","ServiceID":","ServiceName":","CreateIndex":5,"ModifyIndex":5},{"Node":"dev3","CheckID":"service:dev3:nginx:80","Name":"Service 'nginx-80' check","Status":"critical","Notes":","Output":","ServiceID":"dev3:nginx:80","ServiceName":"nginx-80","CreateIndex":145,"ModifyIndex":145}]}]
 ```
 
 

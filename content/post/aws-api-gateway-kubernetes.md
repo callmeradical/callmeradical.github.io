@@ -6,7 +6,7 @@ description = ""
 subtitle = ""
 header_img = ""
 toc = true
-tags = ["aws", "kubernetes", "api gateway"]
+tags = ["Amazon DynamoDB", "api gateway", "aurora", "aws", "AWS Lambda", "AWS re:Invent", "AWS Summit"]
 categories = ["Cloud Engineering", "Kubernetes"]
 series = []
 comment = true
@@ -74,7 +74,7 @@ func healthz(w http.ResponseWriter, r *http.Request) {
 		Message: "We are Healthy!",
  	}
 
-	str, err := json.MarshalIndent(&res, "", "\t")
+	str, err := json.MarshalIndent(&res, ", "\t")
 	if err != nil {
 		log.Println(err.Error())
 	}
@@ -362,7 +362,7 @@ $ aws apigateway put-integration-response \
 	--resource-id $HEALTH_ID 
 	--http-method GET \
 	--status-code 200 \
-	--response-templates '{"application/json": ""}'
+	--response-templates '{"application/json": "}'
 
 $ aws apigateway put-method-response \
 	--rest-api-id $API_ID \
