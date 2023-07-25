@@ -7,7 +7,7 @@ subtitle = ""
 header_img = ""
 toc = true
 categories = ["Technology", "Programming", "Web Development", "Cloud Computing", "Software as a Service"]
-tags = ["Nitrous.IO", "Chromebook", "Virtual Machine", "Ruby", "Python", "JavaScript", "Go", "Node.js", "Rails", "Django", "IDE", "AWS re:Invent"]
+tags = ["Miscellaneous", "Programming & Software Development", "Golang", "Rails", "aws"]
 series = []
 comment = true
 +++

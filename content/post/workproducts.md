@@ -6,7 +6,7 @@ description = ""
 subtitle = ""
 header_img = ""
 toc = true
-tags = ["Consulting", "Work Management", "Productivity", "Process Refinement", "Meeting Efficiency", "Time Management", "Information Capture", "Client Engagement", "Collaboration", "Value Stream", "Professional Development"]
+tags = ["Miscellaneous", "Productivity & Time Management", "Value Stream"]
 
 categories = ["Consulting", "Work Management", "Productivity", "Professional Development", "Business Strategy", "Time Management"]
 series = []

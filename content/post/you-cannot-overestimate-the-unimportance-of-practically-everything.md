@@ -6,7 +6,7 @@ description = ""
 subtitle = ""
 header_img = ""
 toc = true
-tags = ["Book Review", "Essentialism", "Time Management", "Decision Making", "Life Hacking", "Personal Development", "Work-life Balance"]
+tags = ["Book Review", "Productivity & Time Management", "Miscellaneous"]
 
 categories = ["Book Review", "Personal Development", "Productivity", "Time Management", "Life Hacks"]
 series = []

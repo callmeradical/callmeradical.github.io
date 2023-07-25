@@ -7,7 +7,7 @@ description = ""
 subtitle = ""
 header_img = ""
 toc = true
-tags = ["Docker", "Service Discovery", "Consul", "Registrator", "Docker Machine", "Microservices", "HashiCorp", "Load Balancing", "Virtualization", "Dynamic Configuration", "Docker Containers", "Docker Networking", "Docker Services", "Docker Toolkit"]
+tags = ["Docker", "Miscellaneous", "DevOps & Infrastructure Management", "docker", "Microservices"]
 
 categories = ["DevOps", "Cloud Computing", "Containerization", "Distributed Systems", "Network Architecture"]
 series = []

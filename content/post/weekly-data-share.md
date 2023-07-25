@@ -6,7 +6,7 @@ description = ""
 subtitle = ""
 header_img = ""
 toc = true
-tags = ["Links Sharing", "Twitter CLI", "Command Line", "National Vulnerability Database", "System Administration", "Infrastructure Security", "Netcat", "Networking", "Chat Server", "File Transmission", "Ruby", "Burlington Ruby Conference", "Zero Downtime Deploys", "Realtime Rails"]
+tags = ["Miscellaneous", "DevOps & Infrastructure Management", "Networking & Security", "Programming & Software Development", "Burlington Ruby Conference"]
 
 categories = ["Technology", "System Administration", "Networking", "Software Development", "Security", "Ruby Programming", "Conferences"]
 series = []

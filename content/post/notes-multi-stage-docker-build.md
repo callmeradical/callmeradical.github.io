@@ -7,7 +7,7 @@ subtitle = ""
 header_img = ""
 toc = true
 categories = ["Technology", "Programming", "DevOps", "Web Development", "Cloud Computing"]
-tags = ["Docker", "Multi-Stage Builds", "Optimization", "Dockerfiles", "Builder Pattern", "GoLang", "Alpine", "Nginx"]
+tags = ["Docker", "Miscellaneous", "docker", "Programming & Software Development", "GoLang", "Operating Systems & Environment Management", "Networking & Security"]
 series = []
 comment = true
 +++
