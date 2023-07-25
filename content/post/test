@@ -1,0 +1,12 @@
++++
+description = ""
+subtitle = ""
+header_img = ""
+toc = true
+tags = []
+categories = []
+series = []
+comment = true
++++
+
+title = "Adding the version number of your rails app using git"
