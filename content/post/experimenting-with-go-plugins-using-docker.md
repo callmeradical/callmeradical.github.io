@@ -2,7 +2,7 @@
 title = "Experimenting With Go Plugins Using Docker"
 date = 2017-10-13T11:32:07-04:00
 draft = false
-description = ""
+description = "Unlocking Go Plugin Development Across Platforms: A Docker Approach"
 subtitle = ""
 header_img = ""
 toc = true

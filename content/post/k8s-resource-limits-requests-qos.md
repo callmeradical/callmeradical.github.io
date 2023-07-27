@@ -1,7 +1,7 @@
 +++
 date = "2017-07-23T13:51:34-04:00"
 title = "Kubernetes: Resource Requests, Limits, and Quality of Service"
-description = ""
+description = "Demystifying Resource Management and QoS in Kubernetes: A Deep Dive"
 subtitle = ""
 header_img = ""
 toc = true

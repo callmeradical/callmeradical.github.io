@@ -2,7 +2,7 @@
 title = "Notes: Multi Stage Docker Build"
 date = 2018-06-15T14:51:50-05:00
 draft = false 
-description = ""
+description = "Streamlining Docker Workflows: Leveraging Multi-stage Builds for Efficient and Maintainable Dockerfiles"
 subtitle = ""
 header_img = ""
 toc = true

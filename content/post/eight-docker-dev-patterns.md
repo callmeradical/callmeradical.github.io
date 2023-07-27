@@ -2,8 +2,6 @@
 date  = "2015-09-29T02:36:55-04:00"
 draft = false
 title = "Eight Docker Development Patterns"
-description = ""
-subtitle = ""
 header_img = ""
 toc = true
 tags = ["docker"]

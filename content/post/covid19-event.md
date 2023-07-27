@@ -2,7 +2,7 @@
 title = "COVID-19"
 date =  2020-11-10T13:48:29-05:00
 draft = false
-description = ""
+description = "On Monday, November 9th, me and my family were informed that our neighbor and close friend had tested positive for COVID-19."
 subtitle = ""
 header_img = ""
 toc = true

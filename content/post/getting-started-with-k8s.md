@@ -2,8 +2,6 @@
 date = "2015-09-30T02:39:08-04:00"
 draft = false
 title =  "Tetris... err... Getting Started with Kubernetes"
-description = ""
-subtitle = ""
 header_img = ""
 toc = true
 tags = ["Kubernetes", "AWS", "Miscellaneous", "DevOps", "Golang"]

@@ -2,7 +2,7 @@
 title = "COVID-19 and Family Care"
 date =  2020-11-10T13:48:29-05:00
 draft = true
-description = ""
+description = "When our close friend and neighbor tested positive for COVID-19, my family and I took swift action: we alerted our recent contacts and got ourselves tested, even using a COVID-19 screening app for additional support. Even though our initial rapid tests were negative, we're practicing precautionary measures, following CDC guidelines, and isolating at home until our PCR results come in."
 subtitle = ""
 header_img = ""
 toc = true

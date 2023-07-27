@@ -2,8 +2,6 @@
 date = "2015-09-25T05:33:56-04:00"
 draft = false
 title = "Working with octopress... in a container."
-description = ""
-subtitle = ""
 header_img = ""
 toc = true
 tags = ["Docker", "Miscellaneous", "Software Development", "Google", "System Administration", "docker"]

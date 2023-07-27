@@ -2,7 +2,7 @@
 title = "Work Products"
 date = 2019-09-11T21:41:50-05:00
 draft = false
-description = ""
+description = "The importance of making my work tangible, viewing meeting outputs as work products"
 subtitle = ""
 header_img = ""
 toc = true

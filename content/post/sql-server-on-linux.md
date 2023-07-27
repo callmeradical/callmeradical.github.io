@@ -2,8 +2,6 @@
 date = "2016-03-08T05:20:05-04:00"
 draft = false
 title = "SQL Server on Linux?"
-description = ""
-subtitle = ""
 header_img = ""
 toc = true
 tags = ["Miscellaneous", "Database", "System Administration", "Cloud Engineering"]

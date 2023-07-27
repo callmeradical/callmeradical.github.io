@@ -2,8 +2,6 @@
 date = "2016-03-08T06:32:21-04:00"
 draft = false
 title = "Multitasking? You want to talk about multitasking?"
-description = ""
-subtitle = ""
 header_img = ""
 toc = true
 tags = ["Miscellaneous", "Productivity"]

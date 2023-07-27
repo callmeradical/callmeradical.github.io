@@ -2,8 +2,6 @@
 date  = "2015-09-24T16:07:36-04:00"
 draft = false
 title = "It's that time again..."
-description = ""
-subtitle = ""
 header_img = ""
 toc = true
 tags = ["AWS", "Miscellaneous", "System Administration"]

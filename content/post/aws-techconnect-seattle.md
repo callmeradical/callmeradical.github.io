@@ -2,8 +2,6 @@
 date = "2015-10-28T00:59:36-04:00"
 draft = false
 title =  "Lambda, Docker/ECS, and S3... sitting in a tree."
-description = ""
-subtitle = ""
 header_img = ""
 toc = true
 tags = ["AWS"]

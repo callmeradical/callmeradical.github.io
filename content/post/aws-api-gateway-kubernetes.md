@@ -2,7 +2,7 @@
 draft = false
 date = "2016-11-15T21:10:46-05:00"
 title = "AWS API Gateway with Kubernetes Ingress Map"
-description = ""
+description = "Building a Hybrid Microservices Ecosystem with Kubernetes and AWS API Gateway"
 subtitle = ""
 header_img = ""
 toc = true

@@ -2,8 +2,6 @@
 date  = "2016-03-31T20:40:23-04:00"
 draft = false
 title = "Free advice from a Terraform user"
-description = ""
-subtitle = ""
 header_img = ""
 toc = true
 tags = ["Terraform"]

@@ -2,8 +2,6 @@
 date  = "2016-01-28T03:52:59-04:00"
 draft = false
 title = "You cannot overestimate the unimportance of practically everything."
-description = ""
-subtitle = ""
 header_img = ""
 toc = true
 tags = ["Book Review", "Productivity", "Miscellaneous"]

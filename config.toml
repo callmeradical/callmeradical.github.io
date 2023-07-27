@@ -2,7 +2,6 @@ baseurl = "https://cromleylabs.com"
 title = "Lars Cromley"
 theme = "puppet"
 copyright = "&copy; <a href=\"https://github.com/callmeradical\">Lars Cromley</a> 2017"
-disqusShortname = "callmeradical"
 googleAnalytics = "UA-159931755-2"
 languageCode = "en"
 defaultContentLanguage = "en"
@@ -14,7 +13,7 @@ enableEmoji = true
 # See https://github.com/gohugoio/hugo/issues/7228#issuecomment-714490456
 ignoreErrors = ["error-remote-getjson"]
 
-Paginate = 4 
+Paginate = 7 
 
 [outputs]
 home = ["HTML", "JSON", "RSS"]
@@ -58,7 +57,7 @@ weight = -100
 author = "Lars Cromley"
 description = ""
 keywords = "blog,personal"
-img_home = "img/truck-bg.jpeg"
+img_home = "img/truck-bg.jpg"
 img_404 = "img/404-bg.jpg"
 useFaviconGenerator = true
 custom_js = []
@@ -71,20 +70,8 @@ gravatarEmail = "lars@cromleylabs.com"
 bio = "assorted esoterica"
 
 [params.social]
-medium = "larscromley"
+medium = "@larscromley"
 linkedin = "larscromley"
 github = "callmeradical"
 twitter = "larscromley"
 rss = true
-
-
-# See https://giscus.app/
-[params.giscus]
-enable = true
-repo = "roninro/hugo-theme-puppet"
-repo_id = "R_kgDOHuvyhw"
-category = "General"
-category_id = "DIC_kwDOHuvyh84CQjDo"
-input_position = "top"
-theme = "light_tritanopia"
-lang = "en"

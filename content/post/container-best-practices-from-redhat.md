@@ -2,8 +2,6 @@
 date = "2016-03-31T16:03:39-04:00"
 draft = false
 title = "Container best practices from RedHat"
-description = ""
-subtitle = ""
 header_img = ""
 toc = true
 tags = ["Docker"]
