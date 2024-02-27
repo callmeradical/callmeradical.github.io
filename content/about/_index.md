@@ -1,5 +1,3 @@
 I'm Lars Cromley, a leader and Technology Fellow in Deloitte Space. I work with our government and commercial clients to tap into current and future opportunities in the space industry. My career spans over 20 years in software, distributed computing, and innovation. As part of Deloitte's Office of the CTO, I help drive our technology strategy and vision, while also leading the efforts in our Space practice to build a future in space that's accessible, sustainable, and responsible.
 
-My passion for technology took root in my love for video games and led me to Full Sail University where I studied Game Design and Development. Post-graduation, my journey took me from working on indie games and major software titles, serving in the United States Navy, to making significant strides in the space industry.
-
 Outside of work, I unwind by reading and writing science fiction, playing Dungeons and Dragons, and spending precious time with my wife and our three daughters. As I continue to help organizations realize their potential in space, I remain committed to educating others about our connection to this expansive frontier and our role in its future.
