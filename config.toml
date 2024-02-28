@@ -1,77 +1,36 @@
-baseurl = "https://cromleylabs.com"
-title = "Lars Cromley"
-theme = "puppet"
-copyright = "&copy; <a href=\"https://github.com/callmeradical\">Lars Cromley</a> 2017"
-googleAnalytics = "UA-159931755-2"
-languageCode = "en"
-defaultContentLanguage = "en"
+## -----------------------------------------------
+## Basic Configuration
+## -----------------------------------------------
 
-hasCJKLanguage = true
-enableInlineShortcodes = true
-enableEmoji = true
-# prevent build failures when using Hugo's Instagram shortcode due to deprecated Instagram API.
-# See https://github.com/gohugoio/hugo/issues/7228#issuecomment-714490456
-ignoreErrors = ["error-remote-getjson"]
+theme = "hugo-story"
 
-Paginate = 7 
+## -----------------------------------------------
+## Publish
+## -----------------------------------------------
 
-[outputs]
-home = ["HTML", "JSON", "RSS"]
+relativeURLs = "true"
+#canonifyURLs = "true"
 
-# prevent build failures when using Hugo's template _internal/opengraph.html 
-[taxonomies]
-category = "categories"
-tag = "tags"
-series = "series"
+# Local
+baseURL = "/"
+publishDir = "public"
 
-[markup]
-[markup.highlight]
-noClasses = true
-codeFences = true
-guessSyntax = true
-lineNos = true
-lineNumbersInTable = false
-style = "dracula"
+# Remote
+#baseURL = "https://caressofsteel.github.io/demos/hugo/hugo-story/"
+#publishDir = "//centos/sites/hugodev/hugostory/"
 
-[markup.goldmark.renderer]
-unsafe = true
 
-[menu]
-[[menu.main]]
-identifier = "home"
-name = "Home"
-url = "/"
-weight = -150
-[[menu.main]]
-identifier = "archive"
-name = "Archive"
-url = "/archive/"
-weight = 10
-[[menu.main]]
-identifier = "about"
-name = "About"
-url = "/about/"
-weight = -100
+## -----------------------------------------------
+## Hugo Built-in Features
+## -----------------------------------------------
 
-[params]
-author = "Lars Cromley"
-description = ""
-keywords = "blog,personal"
-img_home = "img/truck-bg.jpg"
-img_404 = "img/404-bg.jpg"
-useFaviconGenerator = true
-custom_js = []
-custom_css = [] # ["css/custom.css"]  Add your file to assets folder  [assets/css/custom.css]
+disableKinds = ["taxonomy", "taxonomyTerm", "section"]
+# googleAnalytics = "your-google-analytics-id"
 
-[params.sidebar]
-enable = true
-gravatarEmail = "lars@cromleylabs.com"
-# Overwritten by your gravatar image if `gravatarEmail` is filled
-bio = "assorted esoterica"
+## -----------------------------------------------
+## Site Parameters
+## -----------------------------------------------
 
-[params.social]
-medium = "@larscromley"
-linkedin = "larscromley"
-github = "callmeradical"
-twitter = "larscromley"
-rss = true
+[Params]
+
+[Params.social]

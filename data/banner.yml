@@ -1,0 +1,22 @@
+####################### Banner #########################
+style: "style3 orient-left content-align-left image-position-right fullscreen onload-image-fade-in onload-content-fade-right"
+title : "Lars Cromley"
+subtitle: |
+  Dad. Technologist. Space Junkie. D&D Nerd.
+content : |
+  I am Lars Cromley, a leader and Technology Fellow in Deloitte Space. I work
+  with our government and commercial clients to tap into current and future
+  opportunities in the space industry. My career spans over 20 years in
+  software, distributed computing, and innovation.<br><br>
+
+  As part of Deloitte's Office of the CTO, I help drive our technology strategy
+  and vision, while also leading the efforts in our Space practice to build a
+  future in space that's accessible, sustainable, and responsible. <br><br>
+
+  Outside of work, I unwind by reading and writing science fiction, playing
+  Dungeons and Dragons, and spending time with my wife and our three
+  daughters. As I continue to help organizations realize their potential in
+  space, I remain committed to educating others about our connection to this
+  expansive frontier and our role in its future. 
+image : "images/banner.jpg"
+
