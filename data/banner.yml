@@ -1,22 +1,16 @@
 ####################### Banner #########################
 style: "style3 orient-left content-align-left image-position-right fullscreen onload-image-fade-in onload-content-fade-right"
-title : "Lars Cromley"
+title: "Lars Cromley"
 subtitle: |
-  Dad. Technologist. Space Junkie. D&D Nerd.
-content : |
-  I am Lars Cromley, a leader and Technology Fellow in Deloitte Space. I work
-  with our government and commercial clients to tap into current and future
-  opportunities in the space industry. My career spans over 20 years in
-  software, distributed computing, and innovation.<br><br>
+  Building today’s platforms for tomorrow’s possibilities
+content: |
+  A game developer and semi-pro gamer turned Navy aviation ordnance man, Lars spent a decade launching startups and scaling infrastructure—before joining Deloitte as a Technology Fellow in the Office of the CTO and leader of its Space Practice.
 
-  As part of Deloitte's Office of the CTO, I help drive our technology strategy
-  and vision, while also leading the efforts in our Space practice to build a
-  future in space that's accessible, sustainable, and responsible. <br><br>
+  Today he engineers cloud-native, AI-powered platforms—from satellite constellations to supermarket supply chains—that endure, evolve, and scale. He gives talks and tells stories—infusing stoic philosophy, sci-fi narrative, and assorted esoteric passions into every blueprint.
 
-  Outside of work, I unwind by reading and writing science fiction, playing
-  Dungeons and Dragons, and spending time with my wife and our three
-  daughters. As I continue to help organizations realize their potential in
-  space, I remain committed to educating others about our connection to this
-  expansive frontier and our role in its future. 
-image : "images/banner.jpg"
+  When he’s not architecting the next big thing, you’ll find him reading and writing science fiction, running D&D campaigns, or adventuring with his wife and three daughters.
 
+  > “Lars helps our clients get to their tomorrow just a little bit sooner.”
+
+  [Get in touch](mailto:contact@larscromley.com) to explore what’s next.
+image: "images/banner.jpg"
